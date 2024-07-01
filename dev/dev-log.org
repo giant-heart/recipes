@@ -1,0 +1,34 @@
+* Intention
+I want to be able to write journal entries with easy access to optional prompts.
+
+- prompts with distinct sections such as
+  - Dream Journals
+  - Inspiration -> Poem -> Reflection
+  - Custom sections
+
+- prompts from a list of prompts (such as emotions)
+
+
+* Dev Tasks
+** Define a structure for the entries
+*** Overarching structure
+- blocks
+  - with names eg. poem-block, dream-block, plain-block
+  - with a corresponding render and creation functions
+
+*** Individual block representations
+- names eg. poem-block
+- custom data structure, eg. lines with syllables
+
+** Command palette information
+- I changed it so that when we get a suggestion both TAB and Enter autocompletes and submits.
+
+** Base Blocks
+*** Plain
+I want these to be able to type and have new-lines, but not be able to backspace. Backspacing in front of a word should strikethrough instead
+and ideally move the cursor to behind it.
+
+*** Poem
+
+** Define Styling
+- ink-ui has it's own styling, but we're using a text-input from outside because we want it to be controlled.
