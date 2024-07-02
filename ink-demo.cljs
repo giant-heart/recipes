@@ -1,11 +1,11 @@
 (ns ink-demo
   (:require ["ink" :refer [render Text Box]]
-            ["ink-text-input$default" :as TextInput]
+            #_["ink-text-input$default" :as TextInput]
             ["ink-text-input" :refer [UncontrolledTextInput]]
             ["ink-gradient$default" :as Gradient]
             ["ink-big-text$default" :as BigText]
             ["syllable" :refer [syllable]]
-            #_["@inkjs/ui" :refer [TextInput]]
+            ["@inkjs/ui" :refer [TextInput]]
             [clojure.string :as s]
             [reagent.core :as r]))
 

@@ -9,7 +9,60 @@ I want to be able to write journal entries with easy access to optional prompts.
 - prompts from a list of prompts (such as emotions)
 
 
-* Dev Tasks
+* Code Structure
+** Base.cljs
+The entrypoint to the application. It's where we init our state and call our render function.
+
+** dev/
+Our dev namespaces. Just for experimentation, not to be referenced anywhere else
+
+** components/
+The building blocks of our application.
+*** ui.cljs
+Functions that manipulate the user-interface on a macro level such as switching focus between inputs.
+
+
+*** entry_composition.cljs
+This will organize the creation of entry-blocks by matching templates to render functions.
+
+#+begin_src clojure
+  ;; exmaple entry
+  {:creation-date <timestamp>
+   :surfaces [<surface-1> <surface-2> <surface-3>]
+   :author <author-name>}
+
+  ;; example surface
+  {:type "dream"
+   :render-function ws/dream-surface
+   :contents "here is my dream"}
+#+end_src
+
+*** renders/
+These are the specific ui components that make up our application. They are mostly React Fragments.
+
+**** header.cljs
+The heading of the application. Mostly for branding and cosmetics.
+
+**** command_palette.cljs
+A textual user interface for controlling and navigating the application.
+
+**** editor.cljs
+The structure of the main writing experience. It's main task is to organize the display of writing surfaces.
+
+**** writing_surfaces/
+These are the different ways that we can add blocks of text to our journal entries. Examples may include adding dreams, poems, or stories.
+
+***** interface.cljs
+An interface to all the writing surfaces so that we can reference them in a consistent manner.
+
+***** plain.cljs
+The default writing surface. It's mostly a text-box with a title.
+It's a "controlled" component which allows us to dynamically set the contents of the textbox. For example, typing "/" is set to switch focus to the command palette.
+
+
+
+
+* Overarching Tasks
 ** Define a structure for the entries
 *** Overarching structure
 - blocks
@@ -32,3 +85,8 @@ and ideally move the cursor to behind it.
 
 ** Define Styling
 - ink-ui has it's own styling, but we're using a text-input from outside because we want it to be controlled.
+
+* Actionable Steps
+
+** Low hanging fruit
+- [ ] Make the command character configurable
