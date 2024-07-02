@@ -3,7 +3,8 @@
             ["ink-text-input$default" :as TextInput]
             [reagent.core :as r]
             [clojure.string :as s]
-            [components.ui :as ui]))
+            [components.ui :as ui]
+            [components.state :as state]))
 
 (defn update-surface-contents! [entry* surface-uid new-contents]
   (let [updated-surfaces (map (fn [s]
@@ -12,10 +13,14 @@
                           (:surfaces @entry*))]
     (swap! entry* assoc :surfaces updated-surfaces)))
 
-(defn plain-surface [data entry*]
-  (let [{:keys [uid contents]} data]
+(defn plain-surface [entry* uid]
+  (let [all-surfaces (:surfaces @entry*)
+        this-surface (first (filter (fn [s] (= (:uid s) uid))
+                                    all-surfaces))
+        contents (:contents this-surface)]
     [:> Box
-     {:flex-direction "column"
+     {:key uid
+      :flex-direction "column"
       :border-style "round"
       :width "90%"
       :gap 1}
@@ -25,10 +30,10 @@
       {:id "journal-1"
        :placeholder "write here"
        :value (if contents contents "")
-       :focus (= uid @ui/focus)
+       :focus (= uid @state/focus)
        :on-up (fn [] (print uid))
        :on-down (fn [] (print uid))
        :on-change (fn [e]
                     (if (s/includes? e "/")
-                      (ui/switch-focus "command-line")
+                      (ui/switch-focus "command-palette")
                       (update-surface-contents! entry* uid e)))}]]))

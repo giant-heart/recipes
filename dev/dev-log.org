@@ -90,3 +90,4 @@ and ideally move the cursor to behind it.
 
 ** Low hanging fruit
 - [ ] Make the command character configurable
+- [ ] Allow for switching between command palettes

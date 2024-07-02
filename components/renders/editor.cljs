@@ -5,24 +5,24 @@
             [components.renders.writing-surfaces.interface :as ws]
             [components.renders.command-palette :as c]
             [components.entry-composition :as ec]
-            #_[components.ui :as ui]
+            [components.state :as state]
             [reagent.core :as r]))
 
-(defonce active-entry* (r/atom (ec/create-entry "Ada")))
 
-(ec/add-surface active-entry* "plain")
+(defn entry-surfaces [entry*]
+  (let [surfaces (:surfaces @entry*)]
+    (map (fn [s]
+           (let [{:keys [uid render-function]} s]
+             (render-function entry* uid)))
+         surfaces)))
 
-(defn entry-surfaces [entry]
-  (let [surfaces (:surfaces @entry)]
-    (print surfaces)))
-
-(entry-surfaces active-entry*)
 
 (defn writing-area []
   [:> Box
    {:flex-direction "column"
-    :border-style "round"}
+    :border-style "round"
+    :background-color "teal"}
    (h/title-block "giant heart journal" "tiny")
-   #_(entry-surfaces active-entry*)
-   (c/command-line active-entry*)
+   (entry-surfaces state/active-entry*)
+   (c/command-palette state/active-entry*)
    ])
