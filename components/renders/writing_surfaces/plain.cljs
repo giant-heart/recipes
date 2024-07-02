@@ -4,6 +4,7 @@
             [reagent.core :as r]
             [clojure.string :as s]
             [components.ui :as ui]
+            [components.utils :as util]
             [components.state :as state]))
 
 (defn update-surface-contents! [entry* surface-uid new-contents]
@@ -17,6 +18,7 @@
   (let [all-surfaces (:surfaces @entry*)
         this-surface (first (filter (fn [s] (= (:uid s) uid))
                                     all-surfaces))
+        surface-position (util/position-of-surface uid all-surfaces)
         contents (:contents this-surface)]
     [:> Box
      {:key uid
@@ -24,8 +26,13 @@
       :border-style "round"
       :width "90%"
       :gap 1}
-     [:> Text
-      "Plain"]
+     [:> Box
+      {:justify-content "space-between"}
+      [:> Text "Plain"]
+      (if (= "command-palette" @state/focus)
+        [:> Text
+         {:inverse true}
+         (str " "(inc surface-position)" ")])]
      [:> TextInput
       {:id "journal-1"
        :placeholder "write here"

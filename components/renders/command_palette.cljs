@@ -12,8 +12,8 @@
 (def commands {"add" (fn [] (ec/add-surface state/active-entry* "plain"))})
 
 (defn run-command [cmd]
-  (cond
-    ))
+  (if (int? (js/parseInt cmd)) (ui/switch-focus-to-index (js/parseInt cmd))
+      ((get commands cmd nil))))
 
 (def suggestion-list ["add"
                       "add words"
@@ -34,9 +34,10 @@
         :value @command-text
         :is-disabled (not= "command-palette" @state/focus)
         :on-change (fn [e]
-                     (if (int? (js/parseInt e))
-                       (ui/switch-to-index (js/parseInt e))
+                     (if (and (int? (js/parseInt e))
+                              (< (count (:surfaces @state/active-entry*)) 10))
+                       (ui/switch-focus-to-index (js/parseInt e))
                        (reset! command-text e)))
         :on-submit (fn [e]
                      (print e)
-                     ((get commands e nil)))}])]])
+                     (run-command e))}])]])
