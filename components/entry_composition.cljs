@@ -16,7 +16,7 @@
                      :uid (str (random-uuid))
                      :render-function (get render-functions surface-type)
                      :contents nil}
-        updated-surfaces (conj (get @entry* :surfaces) new-surface)]
+        updated-surfaces (conj (vec (get @entry* :surfaces)) new-surface)]
     (print (map :uid updated-surfaces))
     (swap! entry* assoc :surfaces updated-surfaces)
     (ui/switch-focus (:uid new-surface))))
