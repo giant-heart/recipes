@@ -18,7 +18,20 @@
   (let [active-line (nth @lines* idx)
         updated-line (assoc active-line :value new-text)
         new-lines (assoc @lines* idx updated-line)]
-    (print "new lines are " new-lines)
+    #_(print "new lines are " new-lines)
+    (reset! lines* new-lines)
+    new-lines))
+
+(defn add-line! [lines* uid current-idx]
+  (print "adding lines to " @lines* uid current-idx)
+  (print "lines without focus are " (vec (map (fn [l] (assoc l :focus false)) @lines*)))
+  (let [current-lines @lines*
+        lines-without-focus (vec (map (fn [l]
+                                        (assoc l :focus false)) current-lines))
+        next-index (inc current-idx)
+        new-lines (util/insert-at-index lines-without-focus
+                                             next-index
+                                             (create-line uid next-index))]
     (reset! lines* new-lines)
     new-lines))
 
@@ -35,10 +48,18 @@
                     (conj line
                           {:on-change (fn [e]
                                         (util/update-surface-contents! entry*
-                                                                  uid
-                                                                  (update-line! lines*
-                                                                                idx
-                                                                                e)))})])
+                                                                       uid
+                                                                       (update-line!
+                                                                        lines*
+                                                                        idx
+                                                                        e)))
+                           :on-submit (fn []
+                                        (util/update-surface-contents! entry*
+                                                                       uid
+                                                                       (add-line! lines* uid idx))
+                                        )
+                           :on-ctrl-space (fn [e]
+                                            (ui/switch-focus "command-palette"))})])
          @lines*)
     ))
 

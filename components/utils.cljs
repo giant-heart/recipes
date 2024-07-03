@@ -18,3 +18,7 @@
                                   (assoc s :contents new-contents) s))
                               (:surfaces @entry*))]
     (swap! entry* assoc :surfaces updated-surfaces)))
+
+
+(defn insert-at-index [v i e]
+  (vec (concat (take i v) [e] (drop i v))))

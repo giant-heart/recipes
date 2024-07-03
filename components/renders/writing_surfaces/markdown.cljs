@@ -17,7 +17,7 @@
                                     all-surfaces))
         surface-position (util/position-of-surface uid all-surfaces)
         contents (:contents this-surface)]
-    [:> Markdown contents]))
+    [:> Markdown (s/join "\n" (map :value contents))]))
 
 (defn markdown-surface [entry* uid]
   (plain/surface entry* uid ml/multi-line-text-input markdown-display))
