@@ -14,17 +14,13 @@
    :focus true})
 
 (defn update-line! [lines* idx new-text]
-  (print "updating lines" @lines* " with " idx new-text)
   (let [active-line (nth @lines* idx)
         updated-line (assoc active-line :value new-text)
         new-lines (assoc @lines* idx updated-line)]
-    #_(print "new lines are " new-lines)
     (reset! lines* new-lines)
     new-lines))
 
 (defn add-line! [lines* uid current-idx]
-  (print "adding lines to " @lines* uid current-idx)
-  (print "lines without focus are " (vec (map (fn [l] (assoc l :focus false)) @lines*)))
   (let [current-lines @lines*
         lines-without-focus (vec (map (fn [l]
                                         (assoc l :focus false)) current-lines))
@@ -43,10 +39,10 @@
         contents (:contents this-surface)
         lines* (r/atom (if (seq contents) contents [(create-line uid 0)]))]
     (map-indexed (fn [idx line]
-                   (print "line is " line)
                    [:> TextInput
                     (conj line
-                          {:on-change (fn [e]
+                          {:key (str uid "-input-" idx)
+                           :on-change (fn [e]
                                         (util/update-surface-contents! entry*
                                                                        uid
                                                                        (update-line!

@@ -1,5 +1,5 @@
 (ns components.renders.writing-surfaces.markdown
-  (:require ["ink" :refer [render Text Box]]
+  (:require ["ink" :refer [render Text Box Newline]]
             ["ink-text-input$default" :as TextInput]
             [reagent.core :as r]
             [clojure.string :as s]
@@ -17,7 +17,16 @@
                                     all-surfaces))
         surface-position (util/position-of-surface uid all-surfaces)
         contents (:contents this-surface)]
-    [:> Markdown (s/join "\n" (map :value contents))]))
+    (map-indexed (fn [idx c]
+                   [:> Box
+                    {:flex-direction "column"
+                     :key (str uid "-mkd-" idx)}
+                    [:> Markdown
+                     {:width 80
+                      :reflow-text true}
+                     (:value c)]]
+                   )
+                 contents)))
 
 (defn markdown-surface [entry* uid]
   (plain/surface entry* uid ml/multi-line-text-input markdown-display))
