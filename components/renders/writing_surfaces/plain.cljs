@@ -7,14 +7,8 @@
             [components.utils :as util]
             [components.state :as state]))
 
-(defn update-surface-contents! [entry* surface-uid new-contents]
-  (let [updated-surfaces (map (fn [s]
-                            (if (= surface-uid (:uid s))
-                              (assoc s :contents new-contents) s))
-                          (:surfaces @entry*))]
-    (swap! entry* assoc :surfaces updated-surfaces)))
 
-(defn plain-surface [entry* uid]
+(defn surface [entry* uid text-input text-display]
   (let [all-surfaces (:surfaces @entry*)
         this-surface (first (filter (fn [s] (= (:uid s) uid))
                                     all-surfaces))
@@ -33,16 +27,30 @@
         [:> Text
          {:inverse true}
          (str " "(inc surface-position)" ")])]
-     [:> TextInput
-      {:id "journal-1"
-       :placeholder "write here"
-       :value (if contents contents "")
-       :focus (= uid @state/focus)
-       :on-up (fn [e] (print uid))
-       :on-down (fn [e] (print uid))
-       :on-ctrl-space (fn [e]
-                        (ui/switch-focus "command-palette"))
-       :on-change (fn [e]
-                    (if (or (s/includes? e "/"))
-                      (ui/switch-focus "command-palette")
-                      (update-surface-contents! entry* uid e)))}]]))
+     (if (= uid @state/focus)
+       (text-input entry* uid)
+       (text-display entry* uid))]))
+
+
+(defn plain-text-input [entry* uid]
+  (let [all-surfaces (:surfaces @entry*)
+        this-surface (first (filter (fn [s] (= (:uid s) uid))
+                                    all-surfaces))
+        surface-position (util/position-of-surface uid all-surfaces)
+        contents (:contents this-surface)]
+    [:> TextInput
+     {:id "journal-1"
+      :placeholder "write here"
+      :value (if contents contents "")
+      :focus (= uid @state/focus)
+      :on-up (fn [e] (print uid))
+      :on-down (fn [e] (print uid))
+      :on-ctrl-space (fn [e]
+                       (ui/switch-focus "command-palette"))
+      :on-change (fn [e]
+                   (if (or (s/includes? e "/"))
+                     (ui/switch-focus "command-palette")
+                     (util/update-surface-contents! entry* uid e)))}]))
+
+(defn plain-surface [entry* uid]
+  (surface entry* uid plain-text-input plain-text-input))
