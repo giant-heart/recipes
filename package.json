@@ -1,11 +1,11 @@
 {
     "dependencies": {
-        "@inkjs/ui": "^2.0.0",
+        "@inkjs/ui": "github:rainbow-bamboo/ink-ui#custom-keymaps",
         "date-and-time": "^3.3.0",
         "ink": "^5.0.1",
         "ink-big-text": "^2.0.0",
         "ink-gradient": "^3.0.0",
-        "ink-text-input": "^6.0.0",
+        "ink-text-input": "github:rainbow-bamboo/ink-text-input#custom-keymaps-with-backtick-accommodation",
         "nbb": "^1.2.190",
         "shelljs": "^0.8.5",
         "syllable": "^5.0.1",

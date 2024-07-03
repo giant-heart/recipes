@@ -4,7 +4,6 @@
 
 
 (defn switch-focus [target]
-  (print "switching focus to " target)
   (reset! state/focus target))
 
 (defn switch-focus-to-index [idx]
@@ -13,5 +12,4 @@
                                 (> idx 0))
                          (nth surfaces (dec idx))
                          false)]
-    (print "surface target is " surface-target (count surfaces) idx)
     (if surface-target (switch-focus (:uid surface-target)) nil)))

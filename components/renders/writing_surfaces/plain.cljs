@@ -38,9 +38,11 @@
        :placeholder "write here"
        :value (if contents contents "")
        :focus (= uid @state/focus)
-       :on-up (fn [] (print uid))
-       :on-down (fn [] (print uid))
+       :on-up (fn [e] (print uid))
+       :on-down (fn [e] (print uid))
+       :on-ctrl-space (fn [e]
+                        (ui/switch-focus "command-palette"))
        :on-change (fn [e]
-                    (if (s/includes? e "/")
+                    (if (or (s/includes? e "/"))
                       (ui/switch-focus "command-palette")
                       (update-surface-contents! entry* uid e)))}]]))

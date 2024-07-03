@@ -12,8 +12,9 @@
 (def commands {"add" (fn [] (ec/add-surface state/active-entry* "plain"))})
 
 (defn run-command [cmd]
-  (if (int? (js/parseInt cmd)) (ui/switch-focus-to-index (js/parseInt cmd))
-      ((get commands cmd nil))))
+  (if (int? (js/parseInt cmd))
+    (ui/switch-focus-to-index (js/parseInt cmd))
+    ((get commands cmd #()))))
 
 (def suggestion-list ["add"
                       "add words"
@@ -39,5 +40,4 @@
                        (ui/switch-focus-to-index (js/parseInt e))
                        (reset! command-text e)))
         :on-submit (fn [e]
-                     (print e)
                      (run-command e))}])]])
