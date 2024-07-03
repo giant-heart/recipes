@@ -32,7 +32,7 @@
        (text-display entry* uid))]))
 
 
-(defn plain-text-input [entry* uid]
+(defn text-input [entry* uid]
   (let [all-surfaces (:surfaces @entry*)
         this-surface (first (filter (fn [s] (= (:uid s) uid))
                                     all-surfaces))
@@ -53,4 +53,4 @@
                      (util/update-surface-contents! entry* uid e)))}]))
 
 (defn plain-surface [entry* uid]
-  (surface entry* uid plain-text-input plain-text-input))
+  (surface entry* uid text-input text-input))

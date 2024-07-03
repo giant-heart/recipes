@@ -3,8 +3,7 @@
             [components.entry-composition :as ec]
             ["ink" :refer [render]]
             [reagent.core :as r]
-            [components.state :as state]
-            [babashka.cli :as cli]))
+            [components.state :as state]))
 
 (reset! state/active-entry* (ec/create-entry "Ada"))
 

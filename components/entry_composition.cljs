@@ -3,7 +3,8 @@
             [components.time :as time]
             [components.ui :as ui]))
 
-(def render-functions {"plain" ws/plain-surface})
+(def render-functions {"plain" ws/plain-surface
+                       "markdown" ws/markdown-surface})
 
 (defn create-entry [author-name]
   {:creation-date (time/todays-date)
