@@ -7,6 +7,7 @@
             [components.utils :as util]
             [components.state :as state]
             [components.renders.writing-surfaces.plain :as plain]
+            [components.renders.writing-surfaces.multi-line :as ml]
             ["ink-markdown$default" :as Markdown]
             ["dedent$default" :as dedent]))
 
@@ -19,4 +20,4 @@
     [:> Markdown contents]))
 
 (defn markdown-surface [entry* uid]
-  (plain/surface entry* uid plain/text-input markdown-display))
+  (plain/surface entry* uid ml/multi-line-text-input markdown-display))

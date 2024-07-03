@@ -97,4 +97,5 @@ Where you can't backspace, only strikethrough
 
 ** Low hanging fruit
 - [ ] Make the command character configurable
-- [ ] Allow for switching between command palettes
+- [X] Allow for switching between surfaces
+- [ ] Fork Update ink-markdown to make it an ESModule

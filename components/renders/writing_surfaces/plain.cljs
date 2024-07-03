@@ -32,14 +32,14 @@
        (text-display entry* uid))]))
 
 
-(defn text-input [entry* uid]
+(defn single-line-text-input [entry* uid]
   (let [all-surfaces (:surfaces @entry*)
         this-surface (first (filter (fn [s] (= (:uid s) uid))
                                     all-surfaces))
         surface-position (util/position-of-surface uid all-surfaces)
         contents (:contents this-surface)]
     [:> TextInput
-     {:id "journal-1"
+     {:id uid
       :placeholder "write here"
       :value (if contents contents "")
       :focus (= uid @state/focus)
@@ -48,9 +48,9 @@
       :on-ctrl-space (fn [e]
                        (ui/switch-focus "command-palette"))
       :on-change (fn [e]
-                   (if (or (s/includes? e "/"))
+                   (if false #_(or (s/includes? e "/"))
                      (ui/switch-focus "command-palette")
                      (util/update-surface-contents! entry* uid e)))}]))
 
 (defn plain-surface [entry* uid]
-  (surface entry* uid text-input text-input))
+  (surface entry* uid single-line-text-input single-line-text-input))
