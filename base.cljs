@@ -1,5 +1,14 @@
 (ns bases.ink
-  (:require [components.renders.editor :as e]
-            [reagent.core :as r]))
+  (:require
+   ["ink" :refer [render Text Box]]
+   [components.state :as state]
+   [components.entry-composition :as ec]
+   [components.renders.editor :as e]
+   [reagent.core :as r]
+   [babashka.cli :as cli]))
 
-(render (r/as-element [(e/writing-area active-entry*)]))
+
+
+(print "hello")
+
+(render (r/as-element [(e/writing-area)]))
