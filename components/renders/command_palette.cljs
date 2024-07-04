@@ -1,6 +1,6 @@
 (ns components.renders.command-palette
   (:require ["ink" :refer [render Text Box]]
-            ["@inkjs/ui" :refer [TextInput]]
+            ["@inkjs/ui" :as ink-ui]
             [components.ui :as ui]
             [components.entry-composition :as ec]
             [components.renders.editor :as ed]
@@ -30,7 +30,8 @@
    [:> Box
     [:> Text "💘 "]
     (if (= "command-palette" @state/focus)
-      [:> TextInput
+      nil
+      [:> ink-ui/TextInput
        {:suggestions suggestion-list
         :value @command-text
         :is-disabled (not= "command-palette" @state/focus)

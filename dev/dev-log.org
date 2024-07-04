@@ -99,3 +99,4 @@ Where you can't backspace, only strikethrough
 - [ ] Make the command character configurable
 - [X] Allow for switching between surfaces
 - [ ] Fork Update ink-markdown to make it an ESModule
+- [ ] Update our ink-ui fork to only import the text-input
