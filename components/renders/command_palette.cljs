@@ -30,7 +30,6 @@
    [:> Box
     [:> Text "💘 "]
     (if (= "command-palette" @state/focus)
-      nil
       [:> ink-ui/TextInput
        {:suggestions suggestion-list
         :value @command-text

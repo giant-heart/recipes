@@ -49,6 +49,9 @@
                                                                         lines*
                                                                         idx
                                                                         e)))
+
+                           :show-cursor true
+
                            :on-submit (fn []
                                         (util/update-surface-contents! entry*
                                                                        uid

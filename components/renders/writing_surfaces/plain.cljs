@@ -45,10 +45,11 @@
       :focus (= uid @state/focus)
       :on-up (fn [e] (print uid))
       :on-down (fn [e] (print uid))
+      :show-cursor true
       :on-ctrl-space (fn [e]
                        (ui/switch-focus "command-palette"))
       :on-change (fn [e]
-                   (if false #_(or (s/includes? e "/"))
+                   (if (or (s/includes? e "\\"))
                      (ui/switch-focus "command-palette")
                      (util/update-surface-contents! entry* uid e)))}]))
 
