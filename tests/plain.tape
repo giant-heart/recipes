@@ -1,4 +1,4 @@
-Output ./test.gif
+Output ./july-4.gif
 Set Theme "ayu_light"
 Set FontSize 21
 Set Width 1280

@@ -22,7 +22,7 @@
    {:flex-direction "column"
     :border-style "round"
     :background-color "teal"}
-   (h/title-block "giant heart journal" "tiny")
+   (h/title-block "Paper Hearts" "tiny")
    (entry-surfaces state/active-entry*)
    (c/command-palette state/active-entry*)
    ])

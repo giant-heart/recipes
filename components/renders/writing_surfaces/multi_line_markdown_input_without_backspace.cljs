@@ -1,4 +1,4 @@
-(ns components.renders.writing-surfaces.multi-line
+(ns components.renders.writing-surfaces.multi-line-markdown-input-without-backspace
   (:require ["ink" :refer [render Text Box]]
             ["ink-text-input$default" :as TextInput]
             [reagent.core :as r]
@@ -31,7 +31,7 @@
     (reset! lines* new-lines)
     new-lines))
 
-(defn multi-line-text-input [entry* uid & [update-function]]
+(defn multi-line-text-input-without-backspace [entry* uid & [update-function]]
   (let [all-surfaces (:surfaces @entry*)
         this-surface (first (filter (fn [s] (= (:uid s) uid))
                                     all-surfaces))
@@ -52,7 +52,7 @@
 
                            :show-cursor false
 
-                           :enable-backspace true
+                           :enable-backspace false
 
                            :custom-book-end state/custom-book-end
 
@@ -83,4 +83,7 @@
                  contents)))
 
 (defn multi-line-surface [entry* uid]
-  (plain/surface entry* uid multi-line-text-input multi-line-text-input))
+  (plain/surface entry*
+                 uid
+                 multi-line-text-input-without-backspace
+                 multi-line-text-input-without-backspace))

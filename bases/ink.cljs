@@ -5,11 +5,11 @@
             [reagent.core :as r]
             [components.state :as state]))
 
-(reset! state/active-entry* (ec/create-entry "Ada"))
+(reset! state/active-entry* (ec/entry "Ada"))
 
 (let [init-surface-type (first *command-line-args*)]
   (if init-surface-type
-    (ec/add-surface state/active-entry* init-surface-type)
-    (ec/add-surface state/active-entry* "plain")))
+    (ec/add-surface! state/active-entry* init-surface-type)
+    (ec/add-surface! state/active-entry* "plain")))
 
 (render (r/as-element [e/writing-area]))

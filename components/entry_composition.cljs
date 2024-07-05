@@ -1,17 +1,16 @@
 (ns components.entry-composition
-  (:require [components.renders.writing-surfaces.interface :as ws]
+  (:require [components.surfaces.interface :as surfaces]
             [components.time :as time]
             [components.ui :as ui]))
 
-(def render-functions {"plain" ws/plain-surface
-                       "markdown" ws/markdown-surface})
+(def render-functions {"plain" surfaces/plain-surface})
 
-(defn create-entry [author-name]
+(defn entry [author-name]
   {:creation-date (time/todays-date)
    :surfaces []
    :author author-name})
 
-(defn add-surface [entry* surface-type]
+(defn add-surface! [entry* surface-type]
   (let [new-surface {:type surface-type
                      :uid (str (random-uuid))
                      :render-function (get render-functions surface-type)

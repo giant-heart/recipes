@@ -1,4 +1,5 @@
-(ns components.utils)
+(ns components.utils
+  (:require [clojure.string :as s]))
 
 (defn positions
   [pred coll]

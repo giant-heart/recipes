@@ -94,9 +94,11 @@ Where you can't backspace, only strikethrough
 - ink-ui has it's own styling, but we're using a text-input from outside because we want it to be controlled.
 
 * Actionable Steps
+- [ ] Read from config file
 
 ** Low hanging fruit
 - [ ] Make the command character configurable
 - [X] Allow for switching between surfaces
 - [ ] Fork Update ink-markdown to make it an ESModule
 - [ ] Update our ink-ui fork to only import the text-input
+- [X] There is a bug where when we backspace it does not delete the last character/moves the cursor too far back.
