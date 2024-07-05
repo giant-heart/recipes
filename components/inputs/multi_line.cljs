@@ -31,13 +31,16 @@
     (reset! lines* new-lines)
     new-lines))
 
-(defn multi-line-text-input [entry* uid]
+(defn multi-line-text-input [entry* uid & backspace-function]
   (let [all-surfaces (:surfaces @entry*)
         this-surface (first (filter (fn [s] (= (:uid s) uid))
                                     all-surfaces))
         surface-position (util/position-of-surface uid all-surfaces)
         contents (:contents this-surface)
-        lines* (r/atom (if (seq contents) contents [(create-line uid 0)]))]
+        lines* (r/atom (if (seq contents) contents [(create-line uid 0)]))
+        backspace-function (if (seq backspace-function)
+                             (first backspace-function)
+                             (fn [e] nil))]
     (map-indexed (fn [idx line]
                    [:> TextInput
                     (conj line
@@ -52,7 +55,7 @@
 
                            :show-cursor false
 
-                           :enable-backspace false
+                           :on-backspace backspace-function
 
                            :custom-book-end state/custom-book-end
 

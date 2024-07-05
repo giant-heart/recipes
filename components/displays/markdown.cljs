@@ -4,7 +4,7 @@
 
 ;; This renders markdown for view in a surface
 ;; It expects for the contents to be a vector of lines
-;; example: [{:text "# Our first line"} {:text "a *second* line"}]
+;; example: [{:value "# Our first line"} {:value "a *second* line"}]
 
 (defn markdown-display [entry* uid]
   (let [all-surfaces (:surfaces @entry*)

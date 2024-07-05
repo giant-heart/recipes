@@ -9,7 +9,7 @@
 
 (defonce command-text (r/atom ""))
 
-(def commands {"add" (fn [] (ec/add-surface! state/active-entry* "plain"))})
+(def commands {"add" (fn [] (ec/add-surface! state/active-entry* "markdown"))})
 
 (defn run-command [cmd]
   (if (int? (js/parseInt cmd))
