@@ -40,7 +40,7 @@
         lines* (r/atom (if (seq contents) contents [(create-line uid 0)]))
         backspace-function (if (seq backspace-function)
                              (first backspace-function)
-                             (fn [e] nil))]
+                             (fn [e] e))]
     (map-indexed (fn [idx line]
                    [:> TextInput
                     (conj line
@@ -55,7 +55,13 @@
 
                            :show-cursor false
 
-                           :on-backspace backspace-function
+                           :on-backspace (fn [e]
+                                           (util/update-surface-contents! entry*
+                                                                          uid
+                                                                          (update-line!
+                                                                           lines*
+                                                                           idx
+                                                                           (backspace-function e))))
 
                            :custom-book-end state/custom-book-end
 
