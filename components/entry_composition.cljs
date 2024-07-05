@@ -4,7 +4,8 @@
             [components.ui :as ui]))
 
 (def render-functions {"plain" surfaces/single-line-surface
-                       "multi-line" surfaces/multi-line-surface})
+                       "multi-line" surfaces/multi-line-surface
+                       "markdown" surfaces/markdown-surface})
 
 (defn entry [author-name]
   {:creation-date (time/todays-date)
