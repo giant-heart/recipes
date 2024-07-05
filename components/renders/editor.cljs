@@ -13,7 +13,7 @@
   (let [surfaces (:surfaces @entry*)]
     (map (fn [s]
            (let [{:keys [uid render-function]} s]
-             (render-function entry* uid)))
+             (render-function entry* uid "Page")))
          surfaces)))
 
 
