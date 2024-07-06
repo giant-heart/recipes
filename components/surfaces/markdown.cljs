@@ -30,10 +30,15 @@
                                          pos-of-closing-word
                                          closing-word-without-tilde)
               next-word (nth words (inc pos-of-closing-word))
-              next-word-with-tilde (str next-word "~")
+              next-word-with-removed-opening-tilde (if (s/starts-with? next-word "~")
+                                                     (s/join "" (rest next-word))
+                                                     next-word)
+              next-word-with-closing-tilde (if (s/ends-with? next-word-with-removed-opening-tilde "~")
+                                             next-word-with-removed-opening-tilde
+                                             (str next-word-with-removed-opening-tilde "~"))
               words-with-close (assoc words-without-close
                                       (inc pos-of-closing-word)
-                                      next-word-with-tilde)]
+                                      next-word-with-closing-tilde)]
           (s/reverse (s/join " " words-with-close)))))))
 
 
