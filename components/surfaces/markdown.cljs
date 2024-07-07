@@ -60,8 +60,11 @@
               ;; if it was already in a backspaced region, then we remove the starting ~
               ;; this accounts for regions like "hello wonderful ~world~ hi I am a ~long line~"
               ;; where there have been previous backspace regions.
+              ;; in this case, just removing the opening tilde will combine the two regions, and
+              ;; we don't need to change anything else.
               ;; else we leave it as is
-              next-word-with-removed-opening-tilde (if (s/starts-with? next-word "~")
+              next-word-already-striked-through? (s/starts-with? next-word "~")
+              next-word-with-removed-opening-tilde (if next-word-already-striked-through?
                                                      (s/join "" (rest next-word))
                                                      next-word)
 
@@ -70,10 +73,12 @@
                                              next-word-with-removed-opening-tilde
                                              (str next-word-with-removed-opening-tilde "~"))
 
-              ;; and splice it in to our most recent vector of words
+              ;; and splice in our modification to our most recent vector of words
               words-with-close (assoc words-without-close
                                       (inc pos-of-closing-word)
-                                      next-word-with-closing-tilde)]
+                                      (if next-word-already-striked-through?
+                                        next-word-with-removed-opening-tilde
+                                        next-word-with-closing-tilde))]
 
           ;; before joining them back into a single string, and reversing it.
           (s/reverse (s/join " " words-with-close)))))))
