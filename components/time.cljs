@@ -16,5 +16,11 @@
 (defn pretty-date [instant]
   (.format date instant "ddd, MMM DD YYYY"))
 
+(defn ctime [instant]
+  (.format date instant "YYYYMMDDHHMMSS"))
+
 (defn todays-date []
   (pretty-date (new js/Date)))
+
+(defn current-ctime []
+  (ctime (new js/Date)))

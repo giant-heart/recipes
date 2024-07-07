@@ -5,4 +5,6 @@
 
 (def default-book-end "🌟")
 
+(def file-storage-page "/home/wildflower/Documents/Research/FirstDrafts/")
+
 (defonce focus (r/atom "command-palette"))

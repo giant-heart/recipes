@@ -1,6 +1,6 @@
 (ns components.entry-composition
   (:require [components.surfaces.interface :as surfaces]
-            [components.time :as time]
+            [components.time :as t]
             [components.ui :as ui]))
 
 (def render-functions {"plain" surfaces/single-line-surface
@@ -8,7 +8,7 @@
                        "markdown" surfaces/markdown-surface})
 
 (defn entry [author-name]
-  {:creation-date (time/todays-date)
+  {:creation-date (t/todays-date)
    :surfaces []
    :author author-name})
 
