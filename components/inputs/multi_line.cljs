@@ -5,8 +5,7 @@
             [clojure.string :as s]
             [components.ui :as ui]
             [components.utils :as util]
-            [components.state :as state]
-            [components.renders.writing-surfaces.plain :as plain]))
+            [components.state :as state]))
 
 (defn create-line [uid idx]
   {:id (str uid "-" idx)
@@ -63,7 +62,7 @@
                                                                            idx
                                                                            (backspace-function e))))
 
-                           :custom-book-end state/custom-book-end
+                           :custom-book-end state/default-book-end
 
                            :on-submit (fn []
                                         (util/update-surface-contents! entry*

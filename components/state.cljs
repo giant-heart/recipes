@@ -3,6 +3,6 @@
 
 (defonce active-entry* (r/atom nil))
 
-(def custom-book-end "🌟")
+(def default-book-end "🌟")
 
 (defonce focus (r/atom "command-palette"))

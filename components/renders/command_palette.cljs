@@ -11,7 +11,9 @@
 
 (def commands {"add" (fn [] (ec/add-surface! state/active-entry* "markdown"))})
 
-(defn run-command [cmd]
+(defn run-command
+  "This runs the provided command. If it's a number, then we try to switch focus."
+  [cmd]
   (if (int? (js/parseInt cmd))
     (ui/switch-focus-to-index (js/parseInt cmd))
     ((get commands cmd #()))))

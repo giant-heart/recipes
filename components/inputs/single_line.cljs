@@ -20,7 +20,7 @@
       :on-up (fn [e] (print uid))
       :on-down (fn [e] (print uid))
       :show-cursor false
-      :custom-book-end state/custom-book-end
+      :custom-book-end state/default-book-end
       :on-ctrl-space (fn [e]
                        (ui/switch-focus "command-palette"))
       :on-change (fn [e]

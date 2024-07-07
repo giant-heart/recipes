@@ -6,8 +6,6 @@
             [components.ui :as ui]
             [components.utils :as util]
             [components.state :as state]
-            [components.renders.writing-surfaces.plain :as plain]
-            [components.renders.writing-surfaces.multi-line :as ml]
             ["ink-markdown$default" :as Markdown]))
 
 ;; This renders markdown for view in a surface

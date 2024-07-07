@@ -2,7 +2,6 @@
   (:require [components.renders.header :as h]
             ["ink" :refer [render Text Box]]
             ["ink-text-input$default" :as TextInput]
-            [components.renders.writing-surfaces.interface :as ws]
             [components.renders.command-palette :as c]
             [components.entry-composition :as ec]
             [components.state :as state]

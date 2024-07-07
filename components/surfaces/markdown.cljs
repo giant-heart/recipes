@@ -9,7 +9,9 @@
 (defn strikethrough-last-word [text]
   (let [words (s/split text #" ")
         last-word (last words)
-        st-last-word (str "~" last-word "~")]
+        st-last-word (str (if (s/starts-with? last-word "~") nil "~")
+                          last-word
+                          (if (s/ends-with? last-word "~") nil "~"))]
     (s/join " " (assoc words (dec (count words)) st-last-word))))
 
 (defn find-closing-word [words]
@@ -33,7 +35,7 @@
     ;; then we split it into an array of words ["~sllehs" "aes~" "slles" "ehs"]
     ;; and find the word that would be the end of our current backspace-region
     (let [reversed-text (s/reverse text)
-          words (s/split reversed-text #" ")
+          words (s/split reversed-text #"\s")
           pos-of-closing-word (find-closing-word words)]
 
       ;; if that word is the end of the text
