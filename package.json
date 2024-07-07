@@ -11,7 +11,8 @@
         "nbb": "^1.2.190",
         "shelljs": "^0.8.5",
         "syllable": "^5.0.1",
-        "term-size": "^3.0.2"
+        "term-size": "^3.0.2",
+        "zx": "^8.1.4"
     },
     "scripts": {
         "start": "npx nbb ./bases/ink.cljs"
