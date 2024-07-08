@@ -1,6 +1,7 @@
 (ns components.displays.markdown
   (:require ["ink" :refer [Box]]
-            ["ink-markdown$default" :as Markdown]))
+            ["ink-markdown$default" :as Markdown]
+            [clojure.string :as s]))
 
 ;; This renders markdown for view in a surface
 ;; It expects for the contents to be a vector of lines
@@ -21,3 +22,7 @@
                      (:value c)]]
                    )
                  contents)))
+
+(defn markdown-print [contents]
+  (let [lines (map :value contents)]
+    (s/join "\n" lines)))

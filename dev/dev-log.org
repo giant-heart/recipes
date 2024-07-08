@@ -61,7 +61,6 @@ It's a "controlled" component which allows us to dynamically set the contents of
 
 
 
-
 * Overarching Tasks
 ** Define a structure for the entries
 *** Overarching structure

@@ -1,7 +1,8 @@
 (ns components.displays.multi-line
   (:require ["ink" :refer [render Text Box]]
             [reagent.core :as r]
-            [components.utils :as util]))
+            [components.utils :as util]
+            [clojure.string :as s]))
 
 (defn multi-line-text-display [entry* uid]
   (let [all-surfaces (:surfaces @entry*)
@@ -18,3 +19,8 @@
                      (:value c)]]
                    )
                  contents)))
+
+
+(defn multi-line-print [contents]
+  (let [lines (map :value contents)]
+    (s/join "\n" lines)))

@@ -5,11 +5,14 @@
             [components.entry-composition :as ec]
             [components.renders.editor :as ed]
             [reagent.core :as r]
-            [components.state :as state]))
+            [components.state :as state]
+            [components.exporters.org-roam :as ore]))
 
 (defonce command-text (r/atom ""))
 
-(def commands {"add" (fn [] (ec/add-surface! state/active-entry* "markdown"))})
+(def commands {"add" (fn [] (ec/add-surface! state/active-entry* "markdown"))
+               "save" (fn [] (ore/save-org-locally (ec/extract-contents-from-entry state/active-entry*)
+                                                   "cosmic"))})
 
 (defn run-command
   "This runs the provided command. If it's a number, then we try to switch focus."
@@ -19,9 +22,7 @@
     ((get commands cmd #()))))
 
 (def suggestion-list ["add"
-                      "add words"
-                      "add dream"
-                      "add poem"])
+                      "save"])
 
 (defn command-palette []
   [:> Box
