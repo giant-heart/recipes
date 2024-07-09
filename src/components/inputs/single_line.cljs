@@ -7,6 +7,11 @@
             [components.utils :as util]
             [components.state :as state]))
 
+(defn remaining-chars? []
+  (< 0 (- state/max-characters-per-24-hrs
+          @state/characters-within-24-hrs*)))
+
+
 (defn single-line-text-input [entry* uid]
   (let [all-surfaces (:surfaces @entry*)
         this-surface (first (filter (fn [s] (= (:uid s) uid))
@@ -19,6 +24,7 @@
       :focus (= uid @state/focus)
       :on-up (fn [e] (print uid))
       :on-down (fn [e] (print uid))
+      :allow-change (remaining-chars?)
       :show-cursor false
       :custom-book-end state/default-book-end
       :on-ctrl-space (fn [e]
@@ -26,4 +32,7 @@
       :on-change (fn [e]
                    (if (or (s/includes? e "\\"))
                      (ui/switch-focus "command-palette")
-                     (util/update-surface-contents! entry* uid e)))}]))
+                     (if (remaining-chars?)
+                       (do
+                         (swap! state/characters-within-24-hrs* inc)
+                         (util/update-surface-contents! entry* uid e)))))}]))

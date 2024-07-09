@@ -9,7 +9,7 @@
 
 (def default-book-end "🌟")
 
-(def max-characters-per-24-hrs 1000)
+(def max-characters-per-24-hrs 300)
 
 (def org-storage-path "/home/wildflower/Documents/Research/FirstDrafts/")
 

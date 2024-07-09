@@ -12,11 +12,18 @@
    :value ""
    :focus true})
 
+(defn remaining-chars? []
+  (< 0 (- state/max-characters-per-24-hrs
+          @state/characters-within-24-hrs*)))
+
 (defn update-line! [lines* idx new-text]
   (let [active-line (nth @lines* idx)
         updated-line (assoc active-line :value new-text)
         new-lines (assoc @lines* idx updated-line)]
-    (reset! lines* new-lines)
+    (if (remaining-chars?)
+      (do
+        (swap! state/characters-within-24-hrs* inc)
+        (reset! lines* new-lines)))
     new-lines))
 
 (defn add-line! [lines* uid current-idx]
@@ -53,6 +60,8 @@
                                                                         e)))
 
                            :show-cursor false
+
+                           :allow-change (remaining-chars?)
 
                            :on-backspace (fn [e]
                                            (util/update-surface-contents! entry*
