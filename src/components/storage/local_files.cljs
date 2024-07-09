@@ -13,4 +13,5 @@
     (zxfs/outputFile file
                      content
                      (fn [err]
-                       (if err false true)))))
+                       (if err false true)))
+    true))

@@ -5,7 +5,7 @@
             [reagent.core :as r]
             [components.state :as state]))
 
-(reset! state/active-entry* (ec/entry "Giant Heart Poetry" "Ada"))
+(reset! state/active-entry* (ec/entry "Poem" ""))
 
 (let [init-surface-type (first *command-line-args*)]
   (if init-surface-type

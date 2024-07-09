@@ -24,8 +24,10 @@
     (ui/switch-focus-to-index (js/parseInt cmd-str))
     (let [parsed-command (s/split cmd-str #"\s")
           executed-command (first parsed-command)
-          args (rest parsed-command)]
-      ((get commands executed-command) args))))
+          args (rest parsed-command)
+          status ((get commands executed-command) args)]
+      (ui/switch-focus-to-index 0)
+      )))
 
 (def suggestion-list ["add"
                       "save"])

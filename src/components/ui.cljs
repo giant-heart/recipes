@@ -8,8 +8,10 @@
 
 (defn switch-focus-to-index [idx]
   (let [surfaces (:surfaces @state/active-entry*)
-        surface-target (if (and (<= idx (count surfaces))
+        num-surfaces (count surfaces)
+        surface-target (if (and (<= idx num-surfaces)
                                 (> idx 0))
                          (nth surfaces (dec idx))
-                         false)]
+                         (if (= idx 0)
+                           (nth surfaces (dec num-surfaces))))]
     (if surface-target (switch-focus (:uid surface-target)) nil)))
