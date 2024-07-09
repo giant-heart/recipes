@@ -10,5 +10,5 @@
     [:> Box {:width "100%"
              :padding-bottom 1
              :padding-right 1}
-     [:> Text "🌌 "]
+     [:> Text "🐙 "]
      [:> ProgressBar {:value percentage-remaining}]]))

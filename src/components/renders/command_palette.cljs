@@ -3,6 +3,7 @@
             ["@inkjs/ui" :as ink-ui]
             [components.ui :as ui]
             [components.entry-composition :as ec]
+            [components.user-data :as u]
             [components.renders.editor :as ed]
             [reagent.core :as r]
             [components.state :as state]
@@ -13,7 +14,10 @@
 
 (def commands {"add" (fn [] (ec/add-surface! state/active-entry* "markdown"))
                "save" (fn [args]
-                        (let [contents (ec/extract-contents-from-entry state/active-entry*)]
+                        (let [contents (ec/extract-contents-from-entry state/active-entry*)
+                              chars-in-contents (count contents)]
+                          (print "chars in contents " chars-in-contents)
+                          (u/update-save-log! chars-in-contents)
                           (ore/save-org-locally contents
                                                 (if (seq args) (s/join " " args)
                                                     (:title @state/active-entry*)))))})
