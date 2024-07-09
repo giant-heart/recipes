@@ -75,6 +75,14 @@ It's a "controlled" component which allows us to dynamically set the contents of
 *** Writing Flows
 - Move through a list of named blocks with intentions.
 
+*** Limited Characters per Day
+- On save, update the profile data to say
+- X Characters written @ Y time
+
+- On load, we filter to Entries in the last 24 hours
+  - sum their character counts
+  - subtract this from max to get the remaining characters
+
 
 ** Command palette information
 - I changed it so that when we get a suggestion both TAB and Enter autocompletes and submits.

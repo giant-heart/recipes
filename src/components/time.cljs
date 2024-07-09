@@ -24,3 +24,7 @@
 
 (defn current-ctime []
   (ctime (new js/Date)))
+
+(defn time-ago [reference-time]
+  (- (.now js/Date)
+     reference-time))

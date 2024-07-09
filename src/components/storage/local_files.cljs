@@ -15,3 +15,6 @@
                      (fn [err]
                        (if err false true)))
     true))
+
+(defn read-from-file [file-path]
+  (str (zxfs/readFileSync file-path)))

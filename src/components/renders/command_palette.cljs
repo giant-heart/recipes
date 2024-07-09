@@ -13,9 +13,10 @@
 
 (def commands {"add" (fn [] (ec/add-surface! state/active-entry* "markdown"))
                "save" (fn [args]
-                        (ore/save-org-locally (ec/extract-contents-from-entry state/active-entry*)
-                                              (if (seq args) (s/join " " args)
-                                                  (:title @state/active-entry*))))})
+                        (let [contents (ec/extract-contents-from-entry state/active-entry*)]
+                          (ore/save-org-locally contents
+                                                (if (seq args) (s/join " " args)
+                                                    (:title @state/active-entry*)))))})
 
 (defn run-command
   "This runs the provided command. If it's a number, then we try to switch focus."

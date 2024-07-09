@@ -3,14 +3,18 @@
 
 (defonce active-entry* (r/atom nil))
 
+(defonce user-data* (r/atom nil))
+
+(defonce characters-within-24-hrs* (r/atom 0))
+
 (def default-book-end "🌟")
 
 (def max-characters-per-24-hrs 1000)
 
 (def org-storage-path "/home/wildflower/Documents/Research/FirstDrafts/")
 
-(defonce focus (r/atom "command-palette"))
+(def user-data-path "/home/wildflower/.ghp/")
 
-(defonce characters-within-24-hrs* (r/atom 0))
+(defonce focus (r/atom "command-palette"))
 
 (def default-tags nil)
