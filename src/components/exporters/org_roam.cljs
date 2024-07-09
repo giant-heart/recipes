@@ -8,9 +8,12 @@
   (s/replace text "~" "+"))
 
 (defn org-tags [tags]
-  (str "#+filetags: :"
-       (s/join ":" tags)
-       ": \n"))
+  (print tags)
+  (if (seq tags)
+    (str "#+filetags: :"
+         (s/join ":" tags)
+         ": \n")
+    nil))
 
 (defn file-name [title ctime]
   (let [formatted-title (s/replace title " " "_")]
@@ -35,5 +38,5 @@
 (defn save-org-locally [text title]
   (let [ctime (t/current-ctime)
         file-path (str state/org-storage-path (file-name title ctime))
-        converted-text (export-markdown text title ctime ["hello world"])]
+        converted-text (export-markdown text title ctime state/default-tags)]
     (lf/save-to-file converted-text file-path)))

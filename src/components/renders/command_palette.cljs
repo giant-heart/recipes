@@ -6,20 +6,26 @@
             [components.renders.editor :as ed]
             [reagent.core :as r]
             [components.state :as state]
-            [components.exporters.org-roam :as ore]))
+            [components.exporters.org-roam :as ore]
+            [clojure.string :as s]))
 
 (defonce command-text (r/atom ""))
 
 (def commands {"add" (fn [] (ec/add-surface! state/active-entry* "markdown"))
-               "save" (fn [] (ore/save-org-locally (ec/extract-contents-from-entry state/active-entry*)
-                                                   "cosmic"))})
+               "save" (fn [args]
+                        (ore/save-org-locally (ec/extract-contents-from-entry state/active-entry*)
+                                              (if (seq args) (s/join " " args)
+                                                  (:title @state/active-entry*))))})
 
 (defn run-command
   "This runs the provided command. If it's a number, then we try to switch focus."
-  [cmd]
-  (if (int? (js/parseInt cmd))
-    (ui/switch-focus-to-index (js/parseInt cmd))
-    ((get commands cmd #()))))
+  [cmd-str]
+  (if (int? (js/parseInt cmd-str))
+    (ui/switch-focus-to-index (js/parseInt cmd-str))
+    (let [parsed-command (s/split cmd-str #"\s")
+          executed-command (first parsed-command)
+          args (rest parsed-command)]
+      ((get commands executed-command) args))))
 
 (def suggestion-list ["add"
                       "save"])

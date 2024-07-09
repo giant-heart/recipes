@@ -13,8 +13,9 @@
                       "multi-line" d/multi-line-print
                       "markdown" d/markdown-print})
 
-(defn entry [author-name]
-  {:creation-date (t/todays-date)
+(defn entry [title author-name]
+  {:title title
+   :creation-date (t/todays-date)
    :surfaces []
    :author author-name})
 

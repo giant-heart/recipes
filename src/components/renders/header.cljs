@@ -2,21 +2,18 @@
   (:require
    ["ink" :refer [render Text Box]]
    ["ink-gradient$default" :as Gradient]
-   ["ink-big-text$default" :as BigText]
-   [components.state :as state]))
+   ["ink-big-text$default" :as BigText]))
 
-(defn title-block [title font]
+(defn title-block [active-entry* font]
   [:> Box
    {:flex-direction "row"
-    :padding-left 1
-    :padding-right 1
     :justify-content "space-between"}
    [:> Gradient {:colors ["#AA0000" "red"]
                  :flex-direction "column"}
-    [:> Text title]]
+    [:> Text (:title @active-entry*)]]
 
    [:> Gradient
     {:colors ["#AA0000" "red"]
      :flex-direction "column"}
     [:> Text
-     (:creation-date @state/active-entry*)]]])
+     (:creation-date @active-entry*)]]])
