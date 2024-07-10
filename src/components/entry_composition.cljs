@@ -7,10 +7,12 @@
 
 (def render-functions {"plain" surfaces/single-line-surface
                        "multi-line" surfaces/multi-line-surface
-                       "markdown" surfaces/markdown-surface})
+                       "markdown" surfaces/markdown-surface
+                       "poem" surfaces/poem-surface})
 
 (def print-functions {"plain" (fn [e] e)
                       "multi-line" d/multi-line-print
+                      "poem" d/multi-line-print
                       "markdown" d/markdown-print})
 
 (defn entry [title author-name]

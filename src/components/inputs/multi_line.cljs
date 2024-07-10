@@ -63,6 +63,8 @@
 
                            :allow-change (remaining-chars?)
 
+                           :placeholder (str "every letter is precious, so make the most of it." state/default-book-end)
+
                            :on-backspace (fn [e]
                                            (util/update-surface-contents! entry*
                                                                           uid

@@ -63,19 +63,25 @@ It's a "controlled" component which allows us to dynamically set the contents of
 
 * Overarching Tasks
 ** Define a structure for the entries
-*** Overarching structure
+*** DONE Overarching structure
+CLOSED: [2024-07-10 Wed 08:49]
 - blocks
   - with names eg. poem-block, dream-block, plain-block
   - with a corresponding render and creation functions
 
-*** Individual block representations
+*** DONE Individual block representations
+CLOSED: [2024-07-10 Wed 08:49]
 - names eg. poem-block
 - custom data structure, eg. lines with syllables
 
 *** Writing Flows
 - Move through a list of named blocks with intentions.
 
-*** Limited Characters per Day
+**** Data structure
+In order to
+
+*** DONE Limited Characters per Day
+CLOSED: [2024-07-10 Wed 08:49]
 - On save, update the profile data to say
 - X Characters written @ Y time
 
@@ -92,10 +98,10 @@ It's a "controlled" component which allows us to dynamically set the contents of
 I want these to be able to type and have new-lines, but not be able to backspace. Backspacing in front of a word should strikethrough instead
 and ideally move the cursor to behind it.
 
-*** Poem
+*** Multi-line
 
-*** Stone
-Where you can't backspace, only strikethrough
+*** Markdown
+
 
 ** Define Styling
 - ink-ui has it's own styling, but we're using a text-input from outside because we want it to be controlled.
@@ -109,3 +115,9 @@ Where you can't backspace, only strikethrough
 - [ ] Fork Update ink-markdown to make it an ESModule
 - [ ] Update our ink-ui fork to only import the text-input
 - [X] There is a bug where when we backspace it does not delete the last character/moves the cursor too far back.
+
+
+* Things to do before publishing
+- [ ] Implement writing flows
+- [ ] Update forks
+- [ ] Update README

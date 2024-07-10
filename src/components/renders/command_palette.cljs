@@ -12,15 +12,18 @@
 
 (defonce command-text (r/atom ""))
 
-(def commands {"add" (fn [] (ec/add-surface! state/active-entry* "markdown"))
+(def commands {"add" (fn [args]
+                       (let [surface-type (if (seq args) (first args) "markdown")]
+                         (ec/add-surface! state/active-entry* surface-type)))
                "save" (fn [args]
                         (let [contents (ec/extract-contents-from-entry state/active-entry*)
                               chars-in-contents (count contents)]
-                          (print "chars in contents " chars-in-contents)
                           (u/update-save-log! chars-in-contents)
                           (ore/save-org-locally contents
                                                 (if (seq args) (s/join " " args)
-                                                    (:title @state/active-entry*)))))})
+                                                    (:title @state/active-entry*)))
+                          (reset! state/active-entry* (ec/entry "Poem" ""))
+                          (ec/add-surface! state/active-entry* "plain")))})
 
 (defn run-command
   "This runs the provided command. If it's a number, then we try to switch focus."
@@ -30,17 +33,20 @@
     (let [parsed-command (s/split cmd-str #"\s")
           executed-command (first parsed-command)
           args (rest parsed-command)
-          status ((get commands executed-command) args)]
-      (ui/switch-focus-to-index 0)
-      )))
+          status ((get commands executed-command (fn [a] nil)) args)]
+      (ui/switch-focus-to-index 0))))
 
 (def suggestion-list ["add"
+                      "add markdown"
+                      "add poem"
+                      "add plain"
                       "save"])
 
 (defn command-palette []
   [:> Box
    {:flex-direction "column"
     :border-style "round"
+    :border-color (if (= "command-palette" @state/focus) "#FE6D73" "black")
     :width "100%"
     :gap 1}
    [:> Box
