@@ -63,7 +63,9 @@
 
                            :allow-change (remaining-chars?)
 
-                           :placeholder (str "every letter is precious, so make the most of it." state/default-book-end)
+                           :placeholder (if (= 0 idx)
+                                          (str "every letter is precious, so make the most of it." state/default-book-end)
+                                          nil)
 
                            :on-backspace (fn [e]
                                            (util/update-surface-contents! entry*

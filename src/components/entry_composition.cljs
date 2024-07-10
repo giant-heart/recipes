@@ -21,10 +21,12 @@
    :surfaces []
    :author author-name})
 
-(defn add-surface! [entry* surface-type]
-  (let [new-surface {:type surface-type
+(defn add-surface! [entry* surface-type & title]
+  (let [surface-title (if (seq title) (first title) surface-type)
+        new-surface {:type surface-type
                      :uid (str (random-uuid))
                      :render-function (get render-functions surface-type)
+                     :title surface-title
                      :contents nil}
         updated-surfaces (conj (vec (get @entry* :surfaces)) new-surface)]
     (swap! entry* assoc :surfaces updated-surfaces)

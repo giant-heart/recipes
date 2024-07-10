@@ -74,11 +74,14 @@ CLOSED: [2024-07-10 Wed 08:49]
 - names eg. poem-block
 - custom data structure, eg. lines with syllables
 
-*** Writing Flows
+*** Writing Recipes
 - Move through a list of named blocks with intentions.
 
 **** Data structure
-In order to
+In order to write with a recipe, we need
+1) Name of recipe
+2) Surfaces in recipe
+3)
 
 *** DONE Limited Characters per Day
 CLOSED: [2024-07-10 Wed 08:49]

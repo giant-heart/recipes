@@ -15,6 +15,7 @@
 (def commands {"add" (fn [args]
                        (let [surface-type (if (seq args) (first args) "markdown")]
                          (ec/add-surface! state/active-entry* surface-type)))
+
                "save" (fn [args]
                         (let [contents (ec/extract-contents-from-entry state/active-entry*)
                               chars-in-contents (count contents)]
@@ -23,7 +24,11 @@
                                                 (if (seq args) (s/join " " args)
                                                     (:title @state/active-entry*)))
                           (reset! state/active-entry* (ec/entry "Poem" ""))
-                          (ec/add-surface! state/active-entry* "plain")))})
+                          (ec/add-surface! state/active-entry* "plain")))
+
+               "recycle" (fn [args]
+                           (reset! state/active-entry* (ec/entry "Journal" "")) ; this should revert to last formula
+                           (ec/add-surface! state/active-entry* "markdown"))})
 
 (defn run-command
   "This runs the provided command. If it's a number, then we try to switch focus."
@@ -40,6 +45,7 @@
                       "add markdown"
                       "add poem"
                       "add plain"
+                      "recycle"
                       "save"])
 
 (defn command-palette []

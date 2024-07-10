@@ -8,13 +8,11 @@
             [components.state :as state]
             [reagent.core :as r]))
 
-(def bar-char "▅")
-
 (defn entry-surfaces [entry*]
   (let [surfaces (:surfaces @entry*)]
     (map (fn [s]
-           (let [{:keys [uid render-function]} s]
-             (render-function entry* uid "Page")))
+           (let [{:keys [uid render-function title]} s]
+             (render-function entry* uid title)))
          surfaces)))
 
 
