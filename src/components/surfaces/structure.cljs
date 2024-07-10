@@ -27,7 +27,7 @@
       :gap 1}
      [:> Box
       {:justify-content "space-between"}
-      [:> Text title]
+      (if (seq title) [:> Text title])
       (if (= "command-palette" @state/focus)
         [:> Text
          {:inverse true}

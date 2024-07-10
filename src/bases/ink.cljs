@@ -1,7 +1,9 @@
 (ns bases.ink
   (:require [components.renders.editor :as e]
             [components.user-data :as user]
+            [components.writing-recipes :as wr]
             [components.entry-composition :as ec]
+            [clojure.string :as s]
             ["ink" :refer [render]]
             ["shelljs$default" :as sh]
             [reagent.core :as r]
@@ -14,20 +16,26 @@
     (reset! state/characters-within-24-hrs*
             (user/count-of-recent-characters (:save-log user-data) milliseconds-in-a-day))))
 
-(defn read-writing-forms [])
+(defn init-writing-recipes! []
+  (reset! state/writing-recipes* (wr/get-recipes)))
 
 (defn init-editor! []
-  (let [init-surface-type (first *command-line-args*)]
-    (reset! state/active-entry* (ec/entry "giant heart poem" ""))
-    (if init-surface-type
-      (ec/add-surface! state/active-entry* init-surface-type)
-      (ec/add-surface! state/active-entry* "plain"))))
+  (let [init-recipe-name (if (seq *command-line-args*) (s/join " " *command-line-args*)
+                             "Journal")]
 
-(defn init []
+    (reset! state/active-recipe* (wr/get-recipe-by-name init-recipe-name))
+    (reset! state/active-entry* (ec/entry-from-recipe init-recipe-name))
+
+    (ec/add-next-surface-in-recipe! state/active-entry*
+                                    state/active-recipe*
+                                    state/active-recipe-position*)))
+
+(defn init-app []
   (sh/exec "clear")
   (init-user-data!)
+  (init-writing-recipes!)
   (init-editor!))
 
-(init)
+(init-app)
 
 (render (r/as-element [e/writing-area]))

@@ -81,7 +81,17 @@ CLOSED: [2024-07-10 Wed 08:49]
 In order to write with a recipe, we need
 1) Name of recipe
 2) Surfaces in recipe
-3)
+ - Name of each surface in the recipe
+
+It's basically a templated entry.
+
+eg.
+
+{:recipe-name "Giant Heart Poem"
+ :surfaces [["markdown" "Inspiration" "What's on your mind?"]
+            ["poem" "Poem" "art"]
+            ["markdown "Reflection" "What does the poem reveal?"]]
+}
 
 *** DONE Limited Characters per Day
 CLOSED: [2024-07-10 Wed 08:49]

@@ -7,6 +7,12 @@
 
 (defonce user-data* (r/atom nil))
 
+(defonce writing-recipes* (r/atom nil))
+
+(defonce active-recipe-position* (r/atom 0))
+
+(defonce active-recipe* (r/atom {}))
+
 (defonce characters-within-24-hrs* (r/atom 0))
 
 

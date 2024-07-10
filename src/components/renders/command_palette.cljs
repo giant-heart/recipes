@@ -16,6 +16,11 @@
                        (let [surface-type (if (seq args) (first args) "markdown")]
                          (ec/add-surface! state/active-entry* surface-type)))
 
+               "next" (fn [args]
+                        (ec/add-next-surface-in-recipe! state/active-entry*
+                                                        state/active-recipe*
+                                                        state/active-recipe-position*))
+
                "save" (fn [args]
                         (let [contents (ec/extract-contents-from-entry state/active-entry*)
                               chars-in-contents (count contents)]
@@ -42,6 +47,7 @@
       (ui/switch-focus-to-index 0))))
 
 (def suggestion-list ["add"
+                      "next"
                       "add markdown"
                       "add poem"
                       "add plain"

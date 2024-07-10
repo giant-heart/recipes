@@ -1,6 +1,7 @@
 (ns components.entry-composition
   (:require [components.surfaces.interface :as surfaces]
             [components.displays.interface :as d]
+            [components.state :as state]
             [components.time :as t]
             [clojure.string :as s]
             [components.ui :as ui]))
@@ -22,7 +23,7 @@
    :author author-name})
 
 (defn add-surface! [entry* surface-type & title]
-  (let [surface-title (if (seq title) (first title) surface-type)
+  (let [surface-title (if (seq title) (first title) "")
         new-surface {:type surface-type
                      :uid (str (random-uuid))
                      :render-function (get render-functions surface-type)
@@ -31,6 +32,32 @@
         updated-surfaces (conj (vec (get @entry* :surfaces)) new-surface)]
     (swap! entry* assoc :surfaces updated-surfaces)
     (ui/switch-focus (:uid new-surface))))
+
+(defn entry-from-recipe [recipe-name]
+  (let [all-recipes @state/writing-recipes*
+        author-name (:name @state/user-data*)
+        recipe (first (filter (fn [r]
+                                (= (s/lower-case recipe-name)
+                                   (s/lower-case (:name r))))
+                              all-recipes))]
+    (entry (:name recipe) author-name)))
+
+(defn add-next-surface-in-recipe! [entry* recipe* idx*]
+  (let [surface-title (:name @recipe*)
+        recipe-surfaces (:surfaces @recipe*)
+        surface-to-add (get recipe-surfaces @idx* nil)]
+    (if surface-to-add
+      (let [surface-type (first surface-to-add)
+            surface-name (second surface-to-add)
+            new-surface {:type surface-type
+                         :uid (str (random-uuid))
+                         :render-function (get render-functions surface-type)
+                         :title surface-name
+                         :contents nil}
+            updated-surfaces (conj (vec (get @entry* :surfaces)) new-surface)]
+        (swap! idx* inc)
+        (swap! entry* assoc :surfaces updated-surfaces)
+        (ui/switch-focus (:uid new-surface))))))
 
 
 (defn extract-contents-from-entry [entry*]
