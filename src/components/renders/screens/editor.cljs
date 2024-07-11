@@ -1,4 +1,4 @@
-(ns components.renders.editor
+(ns components.renders.screens.editor
   (:require [components.renders.header :as h]
             ["ink" :refer [render Text Box]]
             ["ink-text-input$default" :as TextInput]

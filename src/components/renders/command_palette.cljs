@@ -4,7 +4,6 @@
             [components.ui :as ui]
             [components.entry-composition :as ec]
             [components.user-data :as u]
-            [components.renders.editor :as ed]
             [reagent.core :as r]
             [components.state :as state]
             [components.exporters.org-roam :as ore]
@@ -15,6 +14,7 @@
 (def commands {"add" (fn [args]
                        (let [surface-type (if (seq args) (first args) "markdown")]
                          (ec/add-surface! state/active-entry* surface-type)))
+
 
                "next" (fn [args]
                         (ec/add-next-surface-in-recipe! state/active-entry*
