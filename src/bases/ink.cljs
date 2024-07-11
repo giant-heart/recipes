@@ -11,10 +11,14 @@
 
 (defn init-user-data! []
   (let [user-data (user/get-profile)
-        milliseconds-in-a-day 86400000]
+        milliseconds-in-a-day 86400000
+        {:keys [save-log org-storage-path]} user-data]
     (reset! state/user-data* user-data)
     (reset! state/characters-within-24-hrs*
-            (user/count-of-recent-characters (:save-log user-data) milliseconds-in-a-day))))
+            (user/count-of-recent-characters save-log milliseconds-in-a-day))
+    (if org-storage-path
+      (reset! state/org-storage-path* org-storage-path))
+    nil))
 
 (defn init-writing-recipes! []
   (reset! state/writing-recipes* (wr/get-recipes)))

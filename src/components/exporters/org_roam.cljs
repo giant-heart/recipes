@@ -37,6 +37,6 @@
 
 (defn save-org-locally [text title]
   (let [ctime (t/current-ctime)
-        file-path (str state/org-storage-path (file-name title ctime))
+        file-path (str @state/org-storage-path* (file-name title ctime))
         converted-text (export-markdown text title ctime state/default-tags)]
     (lf/save-to-file converted-text file-path)))

@@ -10,10 +10,12 @@
 
 (defn entry-surfaces [entry*]
   (let [surfaces (:surfaces @entry*)]
-    (map (fn [s]
-           (let [{:keys [uid render-function title]} s]
-             (render-function entry* uid title)))
-         surfaces)))
+    (if (seq surfaces)
+      (map (fn [s]
+             (let [{:keys [uid render-function title]} s]
+               (render-function entry* uid title)))
+           surfaces)
+      nil)))
 
 
 (defn writing-area []

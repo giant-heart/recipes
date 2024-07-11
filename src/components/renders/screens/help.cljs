@@ -4,8 +4,8 @@
             ["ink-markdown$default" :as Markdown]
             [components.renders.command-palette :as c]
             [components.entry-composition :as ec]
-            [components.state :as state]
             [components.ui :as ui]
+            [components.state :as state]
             [reagent.core :as r]))
 
 (def help-text
@@ -50,5 +50,6 @@ Heart is based around the included guides. These guides will take you through a 
      :reflow-text true
      :gap 1}
     help-text]
+   [:> Text (str @state/org-storage-path*)]
    (c/command-palette state/active-entry*)
    ])

@@ -14,23 +14,28 @@
 
 (def commands {"add" (fn [args]
                        (let [surface-type (if (seq args) (first args) "markdown")]
-                         (ec/add-surface! state/active-entry* surface-type)))
+                         (ec/add-surface! state/active-entry* surface-type)
+                         true))
 
                "help" (fn [args]
-                        (reset! state/active-screen* :help))
+                        (reset! state/active-screen* :help)
+                        true)
 
                "close" (fn [args]
-                         (reset! state/active-screen* :editor))
+                         (reset! state/active-screen* :editor)
+                         true)
 
                "next" (fn [args]
                         (ec/add-next-surface-in-recipe! state/active-entry*
                                                         state/active-recipe*
-                                                        state/active-recipe-position*))
+                                                        state/active-recipe-position*)
+                        true)
 
                "start" (fn [args]
                          (let [recipe-name (if (seq args) (s/join " " args)
                                                "Journal")]
-                           (ec/start-recipe! recipe-name)))
+                           (ec/start-recipe! recipe-name)
+                           true))
 
                "save" (fn [args]
                         (let [contents (ec/extract-contents-from-entry state/active-entry*)
@@ -39,10 +44,12 @@
                           (ore/save-org-locally contents
                                                 (if (seq args) (s/join " " args)
                                                     (:title @state/active-entry*)))
-                          (ec/start-recipe! "Journal")))
+                          (ec/start-recipe! "Journal")
+                          true))
 
                "recycle" (fn [args]
-                           (ec/start-recipe! "Journal"))})
+                           (ec/start-recipe! "Journal")
+                           true)})
 
 (defn run-command
   "This runs the provided command. If it's a number, then we try to switch focus."
@@ -53,7 +60,7 @@
           executed-command (first parsed-command)
           args (rest parsed-command)
           status ((get commands executed-command (fn [a] nil)) args)]
-      (sh/exec "clear")
+      (if status (sh/exec "clear"))
       (ui/switch-focus-to-index 0))))
 
 (def suggestion-list ["add"
@@ -68,7 +75,7 @@
   [:> Box
    {:flex-direction "column"
     :border-style "round"
-    :border-color (if (= "command-palette" @state/focus) "#FE6D73" "black")
+    :border-color (if (= "command-palette" @state/focus) "#FE6D73" "#aaaaaa")
     :width "100%"
     :gap 1}
    [:> Box
