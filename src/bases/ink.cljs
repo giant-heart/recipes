@@ -1,5 +1,5 @@
 (ns bases.ink
-  (:require [components.renders.editor :as e]
+  (:require [components.renders.app :as a]
             [components.user-data :as user]
             [components.writing-recipes :as wr]
             [components.entry-composition :as ec]
@@ -22,13 +22,7 @@
 (defn init-editor! []
   (let [init-recipe-name (if (seq *command-line-args*) (s/join " " *command-line-args*)
                              "Journal")]
-
-    (reset! state/active-recipe* (wr/get-recipe-by-name init-recipe-name))
-    (reset! state/active-entry* (ec/entry-from-recipe init-recipe-name))
-
-    (ec/add-next-surface-in-recipe! state/active-entry*
-                                    state/active-recipe*
-                                    state/active-recipe-position*)))
+    (ec/start-recipe! init-recipe-name)))
 
 (defn init-app []
   (sh/exec "clear")
@@ -38,4 +32,4 @@
 
 (init-app)
 
-(render (r/as-element [e/writing-area]))
+(render (r/as-element [(a/app :editor)]))

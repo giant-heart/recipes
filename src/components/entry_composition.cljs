@@ -1,6 +1,7 @@
 (ns components.entry-composition
   (:require [components.surfaces.interface :as surfaces]
             [components.displays.interface :as d]
+            [components.writing-recipes :as wr]
             [components.state :as state]
             [components.time :as t]
             [clojure.string :as s]
@@ -67,3 +68,11 @@
                               print-func (get print-functions type)]
                           (print-func contents))) surfaces)]
     (s/join "\n \n" contents)))
+
+(defn start-recipe! [name]
+  (reset! state/active-recipe* (wr/get-recipe-by-name name))
+  (reset! state/active-entry* (entry-from-recipe name))
+  (reset! state/active-recipe-position* 0)
+  (add-next-surface-in-recipe! state/active-entry*
+                                  state/active-recipe*
+                                  state/active-recipe-position*))

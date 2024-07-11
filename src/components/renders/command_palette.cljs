@@ -21,6 +21,11 @@
                                                         state/active-recipe*
                                                         state/active-recipe-position*))
 
+               "start" (fn [args]
+                         (let [recipe-name (if (seq args) (s/join " " args)
+                                               "Journal")]
+                           (ec/start-recipe! recipe-name)))
+
                "save" (fn [args]
                         (let [contents (ec/extract-contents-from-entry state/active-entry*)
                               chars-in-contents (count contents)]
