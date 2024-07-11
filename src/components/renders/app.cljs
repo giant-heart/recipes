@@ -4,10 +4,11 @@
             [components.renders.ink-well :as iw]
             [components.renders.command-palette :as c]
             [components.renders.screens.editor :as e]
+            [components.renders.screens.help :as h]
             [components.state :as state]
             [reagent.core :as r]))
 
-(defn app [screen]
-  (print screen)
-  (case screen
-    :editor e/writing-area))
+(defn app [active-screen*]
+  (case @active-screen*
+    :editor (e/writing-area)
+    :help (h/help-area)))

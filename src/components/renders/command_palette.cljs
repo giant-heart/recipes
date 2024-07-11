@@ -1,6 +1,7 @@
 (ns components.renders.command-palette
   (:require ["ink" :refer [render Text Box]]
             ["@inkjs/ui" :as ink-ui]
+            ["shelljs$default" :as sh]
             [components.ui :as ui]
             [components.entry-composition :as ec]
             [components.user-data :as u]
@@ -15,6 +16,11 @@
                        (let [surface-type (if (seq args) (first args) "markdown")]
                          (ec/add-surface! state/active-entry* surface-type)))
 
+               "help" (fn [args]
+                        (reset! state/active-screen* :help))
+
+               "close" (fn [args]
+                         (reset! state/active-screen* :editor))
 
                "next" (fn [args]
                         (ec/add-next-surface-in-recipe! state/active-entry*
@@ -33,12 +39,10 @@
                           (ore/save-org-locally contents
                                                 (if (seq args) (s/join " " args)
                                                     (:title @state/active-entry*)))
-                          (reset! state/active-entry* (ec/entry "Poem" ""))
-                          (ec/add-surface! state/active-entry* "plain")))
+                          (ec/start-recipe! "Journal")))
 
                "recycle" (fn [args]
-                           (reset! state/active-entry* (ec/entry "Journal" "")) ; this should revert to last formula
-                           (ec/add-surface! state/active-entry* "markdown"))})
+                           (ec/start-recipe! "Journal"))})
 
 (defn run-command
   "This runs the provided command. If it's a number, then we try to switch focus."
@@ -49,6 +53,7 @@
           executed-command (first parsed-command)
           args (rest parsed-command)
           status ((get commands executed-command (fn [a] nil)) args)]
+      (sh/exec "clear")
       (ui/switch-focus-to-index 0))))
 
 (def suggestion-list ["add"

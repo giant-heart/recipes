@@ -7,7 +7,8 @@
 (defn title-block [active-entry* font]
   [:> Box
    {:flex-direction "row"
-    :justify-content "space-between"}
+    :justify-content "space-between"
+    :width "100%"}
    [:> Gradient {:colors ["#AA0000" "red"]
                  :flex-direction "column"}
     [:> Text (:title @active-entry*)]]

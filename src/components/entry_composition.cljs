@@ -4,6 +4,7 @@
             [components.writing-recipes :as wr]
             [components.state :as state]
             [components.time :as t]
+            ["shelljs$default" :as sh]
             [clojure.string :as s]
             [components.ui :as ui]))
 
@@ -70,9 +71,11 @@
     (s/join "\n \n" contents)))
 
 (defn start-recipe! [name]
+  (sh/exec "clear")
   (reset! state/active-recipe* (wr/get-recipe-by-name name))
   (reset! state/active-entry* (entry-from-recipe name))
   (reset! state/active-recipe-position* 0)
   (add-next-surface-in-recipe! state/active-entry*
                                   state/active-recipe*
-                                  state/active-recipe-position*))
+                                  state/active-recipe-position*)
+  (reset! state/active-screen* :editor))

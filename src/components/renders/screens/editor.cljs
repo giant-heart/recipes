@@ -21,9 +21,10 @@
    {:flex-direction "column"
     :border-style "round"
     :background-color "teal"
+    :width "100%"
     :padding-left 1
     :padding-right 1}
-   (iw/ink-remaining-indicator @state/characters-within-24-hrs*
+   #_(iw/ink-remaining-indicator @state/characters-within-24-hrs*
                                state/max-characters-per-24-hrs)
    (h/title-block state/active-entry* "tiny")
    (entry-surfaces state/active-entry*)

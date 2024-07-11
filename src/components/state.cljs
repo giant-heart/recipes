@@ -11,7 +11,9 @@
 
 (defonce active-recipe-position* (r/atom 0))
 
-(defonce active-recipe* (r/atom {}))
+(defonce active-recipe* (r/atom nil))
+
+(defonce active-screen* (r/atom :help))
 
 (defonce characters-within-24-hrs* (r/atom 0))
 

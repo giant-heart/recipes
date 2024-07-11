@@ -21,8 +21,9 @@
 
 (defn init-editor! []
   (let [init-recipe-name (if (seq *command-line-args*) (s/join " " *command-line-args*)
-                             "Journal")]
-    (ec/start-recipe! init-recipe-name)))
+                             nil)]
+    (if init-recipe-name
+      (ec/start-recipe! init-recipe-name))))
 
 (defn init-app []
   (sh/exec "clear")
@@ -32,4 +33,4 @@
 
 (init-app)
 
-(render (r/as-element [(a/app :editor)]))
+(render (r/as-element [a/app state/active-screen*]))
