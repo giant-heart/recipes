@@ -54,7 +54,7 @@
                              surface-title)
         updated-surfaces (conj (vec (get @entry* :surfaces)) new-surface)]
     (swap! entry* assoc :surfaces updated-surfaces)
-    (ui/switch-focus (:uid new-surface))))
+    (ui/switch-focus! (:uid new-surface))))
 
 (defn entry-from-recipe
   "creates an entry based on a provided recipe-name.
@@ -62,10 +62,7 @@
   [recipe-name]
   (let [all-recipes @state/writing-recipes*
         author-name (:name @state/user-data*)
-        recipe (first (filter (fn [r]
-                                (= (s/lower-case recipe-name)
-                                   (s/lower-case (:name r))))
-                              all-recipes))]
+        recipe (wr/get-recipe-by-name recipe-name)]
     (entry (:name recipe) author-name)))
 
 (defn add-next-surface-in-recipe!
@@ -76,13 +73,13 @@
         recipe-surfaces (:surfaces @recipe*)
         surface-to-add (get recipe-surfaces @idx* nil)]
     (if surface-to-add
-      (let [surface-type (first surface-to-add)
-            surface-name (second surface-to-add)
+      (let [surface-type (:type surface-to-add)
+            surface-name (:title surface-to-add)
             new-surface (surface surface-type surface-name)
             updated-surfaces (conj (vec (get @entry* :surfaces)) new-surface)]
         (swap! idx* inc)
         (swap! entry* assoc :surfaces updated-surfaces)
-        (ui/switch-focus (:uid new-surface))))))
+        (ui/switch-focus! (:uid new-surface))))))
 
 
 (defn extract-contents-from-entry

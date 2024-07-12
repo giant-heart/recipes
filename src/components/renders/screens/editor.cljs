@@ -8,7 +8,18 @@
             [components.state :as state]
             [reagent.core :as r]))
 
-(defn entry-surfaces [entry*]
+;; This represents the editor-screen.
+;; It's the main interface that we use to write entries
+;; It contains **everything** that is rendered on the screen at a time
+;; even the header and command-palette.
+;; A pragmatic decision was to allow for some code duplication in the screen
+;; composition since we already had so many abstractions at the levels that
+;; actually need flexibility, ie the surfaces.
+
+(defn entry-surfaces
+  "Given the active entry, get all the surfaces, and then render them
+  with the appropriate render-function"
+  [entry*]
   (let [surfaces (:surfaces @entry*)]
     (if (seq surfaces)
       (map (fn [s]
@@ -18,7 +29,12 @@
       nil)))
 
 
-(defn writing-area []
+(defn editor-screen
+  "this returns the components necessary to render the editor view.
+  Note the commented out ink-remaining indicator. Uncommenting it will only render the
+  progress bar, but won't stop writing when it's done because we changed the input components to ignore it.
+  "
+  []
   [:> Box
    {:flex-direction "column"
     :border-style "round"

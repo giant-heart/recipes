@@ -4,7 +4,11 @@
    ["ink-gradient$default" :as Gradient]
    ["ink-big-text$default" :as BigText]))
 
-(defn title-block [active-entry* font]
+(defn title-block
+  "The header that we can render at the top of screens
+  it displays the title of the entry and it's creation date.
+  this title is usually set to the name of the recipe being used."
+  [active-entry* font]
   [:> Box
    {:flex-direction "row"
     :justify-content "space-between"

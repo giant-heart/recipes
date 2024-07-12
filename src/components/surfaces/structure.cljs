@@ -13,7 +13,8 @@
   - `entry*`: and atom where state is stored
   - `uid`: an identifier to assign to the surface
   - `text-input`: the component to use when editing
-  - `text-display`: the component to use when displaying"
+  - `text-display`: the component to use when displaying
+  It is the skeleton that we use for all other surfaces."
   [title entry* uid input display]
   (let [all-surfaces (:surfaces @entry*)
         this-surface (first (filter (fn [s] (= (:uid s) uid))

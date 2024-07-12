@@ -7,12 +7,21 @@
             [components.utils :as util]
             [components.state :as state]))
 
-(defn remaining-chars? []
-  (< 0 (- state/max-characters-per-24-hrs
-          @state/characters-within-24-hrs*)))
+(defn remaining-chars?
+  "calculates how many characters are remaining if we were to set
+  a daily character limit, but we're moving away from a
+  scarcity mindset, so it currently defaults to true"
+  []
+  #_(< 0 (- state/max-characters-per-24-hrs
+            @state/characters-within-24-hrs*))
+  true)
 
 
-(defn single-line-text-input [entry* uid]
+(defn single-line-text-input
+  "the input that is rendered. Given the surface uid, entry and
+  an optional backspace function, it gets the text for this
+  particular surface, and then it renders it"
+  [entry* uid]
   (let [all-surfaces (:surfaces @entry*)
         this-surface (first (filter (fn [s] (= (:uid s) uid))
                                     all-surfaces))
@@ -28,10 +37,10 @@
       :show-cursor false
       :custom-book-end state/default-book-end
       :on-ctrl-space (fn [e]
-                       (ui/switch-focus "command-palette"))
+                       (ui/switch-focus! "command-palette"))
       :on-change (fn [e]
                    (if (or (s/includes? e "\\"))
-                     (ui/switch-focus "command-palette")
+                     (ui/switch-focus! "command-palette")
                      (if (remaining-chars?)
                        (do
                          (swap! state/characters-within-24-hrs* inc)

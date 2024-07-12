@@ -1,7 +1,12 @@
 (ns components.utils
   (:require [clojure.string :as s]))
 
+;; Handy functions for doing things that are used in multiple namespaces
+;; some are copied from stack overflow
+
 (defn positions
+  "given a predicate and a collection, return a list of all the positions
+  that that predicate appears in."
   [pred coll]
   (keep-indexed (fn [idx x]
                   (when (pred x)
@@ -13,7 +18,8 @@
                       (= (:uid s) uid))
                     surfaces)))
 
-(defn update-surface-contents! [entry* surface-uid new-contents]
+(defn update-surface-contents!
+  [entry* surface-uid new-contents]
   (let [updated-surfaces (map (fn [s]
                                 (if (= surface-uid (:uid s))
                                   (assoc s :contents new-contents) s))

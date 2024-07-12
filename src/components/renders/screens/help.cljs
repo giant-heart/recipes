@@ -8,6 +8,14 @@
             [components.state :as state]
             [reagent.core :as r]))
 
+;; This represents the help-screen.
+;; It's the main interface that we use to write entries
+;; It contains **everything** that is rendered on the screen at a time
+;; even the header and command-palette.
+;; A pragmatic decision was to allow for some code duplication in the screen
+;; composition since we already had so many abstractions at the levels that
+;; actually need flexibility, ie the surfaces.
+
 (def help-text
   "# Welcome to Heart
 A playground for writing
@@ -35,8 +43,10 @@ Heart is based around the included guides. These guides will take you through a 
 ")
 
 
-(defn help-area []
-  (ui/switch-focus "command-palette")
+(defn help-screen
+  "this returns the components necessary to render the help view."
+  []
+  (ui/switch-focus! "command-palette")
   [:> Box
    {:flex-direction "column"
     :border-style "round"

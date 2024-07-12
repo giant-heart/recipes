@@ -9,6 +9,9 @@
             [reagent.core :as r]
             [components.state :as state]))
 
+;; This is the entrypoint into our application when rendering to a terminal
+;; using the ink library.
+
 (defn init-user-data! []
   (let [user-data (user/get-profile)
         milliseconds-in-a-day 86400000

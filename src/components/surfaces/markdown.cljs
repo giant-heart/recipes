@@ -6,6 +6,12 @@
             [components.utils :as util]
             [clojure.string :as s]))
 
+;; This is the markdown surface
+;; the display is an unedited import of [[components.displays.markdown]], but
+;; the input has been modified with the special backspace as defined below.
+;; instead of simply preventing the backspace, it strikes through the previous word.
+;; the backspace function can be improved with either more cleverness or using instaparse.
+
 (defn strikethrough-last-word [text]
   (let [words (s/split text #" ")
         last-word (last words)

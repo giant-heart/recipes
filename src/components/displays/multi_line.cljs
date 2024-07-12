@@ -4,6 +4,10 @@
             [components.utils :as util]
             [clojure.string :as s]))
 
+;; This renders a multi-line-display for view in a surface
+;; It expects for the contents to be a vector of lines
+;; example: [{:value "# Our first line"} {:value "a *second* line"}]
+
 (defn multi-line-text-display [entry* uid]
   (let [all-surfaces (:surfaces @entry*)
         this-surface (first (filter (fn [s] (= (:uid s) uid))

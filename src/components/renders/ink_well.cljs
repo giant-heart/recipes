@@ -4,6 +4,10 @@
             ["@inkjs/ui" :refer [ProgressBar]]
             ["ink-gradient$default" :as Gradient]))
 
+;; This is a progress bar that we can display
+;; it was previously used to show how many more characters
+;; you could write, but it might be repurposed to show a writing-goal
+
 (defn ink-remaining-indicator [current max]
   (let [percentage-complete (int (* 100 (/ current max)))
         percentage-remaining (- 100 percentage-complete)]

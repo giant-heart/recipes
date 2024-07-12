@@ -12,9 +12,14 @@
    :value ""
    :focus true})
 
-(defn remaining-chars? []
-  (< 0 (- state/max-characters-per-24-hrs
-          @state/characters-within-24-hrs*)))
+(defn remaining-chars?
+  "calculates how many characters are remaining if we were to set
+  a daily character limit, but we're moving away from a
+  scarcity mindset, so it currently defaults to true"
+  []
+  #_(< 0 (- state/max-characters-per-24-hrs
+            @state/characters-within-24-hrs*))
+  true)
 
 (defn update-line! [lines* idx new-text]
   (let [active-line (nth @lines* idx)
@@ -37,7 +42,11 @@
     (reset! lines* new-lines)
     new-lines))
 
-(defn multi-line-text-input [entry* uid & backspace-function]
+(defn multi-line-text-input
+  "the input that is rendered. Given the surface uid, entry and
+  an optional backspace function, it gets all the lines for this
+  particular surface, and then it renders them"
+  [entry* uid & backspace-function]
   (let [all-surfaces (:surfaces @entry*)
         this-surface (first (filter (fn [s] (= (:uid s) uid))
                                     all-surfaces))
@@ -83,6 +92,6 @@
                                                                        (add-line! lines* uid idx))
                                         )
                            :on-ctrl-space (fn [e]
-                                            (ui/switch-focus "command-palette"))})])
+                                            (ui/switch-focus! "command-palette"))})])
          @lines*)
     ))

@@ -3,6 +3,11 @@
             ["os" :refer [homedir]]))
 
 ;; State is stored in a series of atoms that are restricted to this namespace.
+;; I felt comfortable doing it in this rag-tag way because I had a good idea of the
+;; scope of the application and what was needed going into the project.
+;; There are some atoms that are initialized when we read config files,n
+;; there are some atoms that deal with application state, such as which input to focus on,
+;; and there are some constants at the bottom that we can probably move to the config file
 
 ;; The user profile data. This includes their name and a savelog.
 (defonce user-data* (r/atom nil))
@@ -34,15 +39,16 @@
 ;; and updated when `save` is called
 (defonce characters-within-24-hrs* (r/atom 0))
 
+;; The location to save documents to
+(defonce org-storage-path* (r/atom "./"))
+
 ;; The maximum characters that we would allow
 ;; Only applicable if we place a character limit
-(def max-characters-per-24-hrs 1111)
+;; currently disabled in all inputs
+(def max-characters-per-24-hrs 111)
 
 ;; The icon to show as a cursor for writing surfaces
 (def default-book-end "🌟")
-
-;; The location to save documents to
-(defonce org-storage-path* (r/atom "./"))
 
 ;; Default tags to add when saving
 (def default-tags nil)

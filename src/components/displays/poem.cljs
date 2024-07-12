@@ -6,6 +6,7 @@
 ;; This renders poem for view in a surface
 ;; It expects for the contents to be a vector of lines
 ;; example: [{:value "# Our first line"} {:value "a *second* line"}]
+;; it differs from multi-line in that the gap between lines is 0
 
 (defn poem-display [entry* uid]
   (let [all-surfaces (:surfaces @entry*)
@@ -17,7 +18,7 @@
       :gap 0}
      (map-indexed (fn [idx c]
                     [:> Markdown
-                     {:key (str uid "-mkd-" idx)
+                     {:key (str uid "-poem-mkd-" idx)
                       :width 80
                       :reflow-text true}
                      (:value c)]

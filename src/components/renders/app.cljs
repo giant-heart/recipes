@@ -8,7 +8,12 @@
             [components.state :as state]
             [reagent.core :as r]))
 
-(defn app [active-screen*]
+(defn app
+  "This is our router, which decides which screen to display based
+  on the state of the atom passed to it.
+  If we were to add another screen such as a `:config` screen to allow
+  users to change their settings via the TUI then we would add it here."
+  [active-screen*]
   (case @active-screen*
-    :editor (e/writing-area)
-    :help (h/help-area)))
+    :editor (e/editor-screen)
+    :help (h/help-screen)))

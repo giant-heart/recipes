@@ -8,6 +8,10 @@
             [components.surfaces.structure :as structure]
             [components.inputs.single-line :as sl]))
 
+;; A single line input
+;; of note is that it does not take a backspace function
+;; and thus allows for backspacing.
+
 (defn single-line-surface [entry* uid title]
   (structure/surface title
                      entry*

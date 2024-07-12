@@ -4,6 +4,11 @@
             [components.surfaces.markdown :as mks]
             [components.displays.poem :as pd]))
 
+;; This is the poem surface
+;; the display is defined in [[components.inputs.poem]]
+;; and the input is modified to use the backspace function
+;; defined in the markdown surface.
+
 (defn poem-input [entry* uid]
   (pi/poem-text-input entry* uid mks/markdown-backspace))
 
