@@ -8,15 +8,20 @@
             [clojure.string :as s]
             [components.ui :as ui]))
 
-(def render-functions {"plain" surfaces/single-line-surface
-                       "multi-line" surfaces/multi-line-surface
-                       "markdown" surfaces/markdown-surface
-                       "poem" surfaces/poem-surface})
+(def render-functions
+  "The functions to render the surface on the screen. It includes an
+  input for when it's active, and a display for when it's inactive."
+  {"plain" surfaces/single-line-surface
+   "multi-line" surfaces/multi-line-surface
+   "markdown" surfaces/markdown-surface
+   "poem" surfaces/poem-surface})
 
-(def print-functions {"plain" (fn [e] e)
-                      "multi-line" d/multi-line-print
-                      "poem" d/multi-line-print
-                      "markdown" d/markdown-print})
+(def print-functions
+  "The functions to extract the contents of a surface for export."
+  {"plain" (fn [e] e)
+   "multi-line" d/multi-line-print
+   "poem" d/multi-line-print
+   "markdown" d/markdown-print})
 
 (defn entry
   "the named group of all the surfaces present.
@@ -30,11 +35,13 @@
    :author author-name})
 
 (defn surface
-  ""
+  "the data structure for each surface. It takes the type of surface and a title
+   and returns a map populated with a new uuid, the print, and the render functions"
   [surface-type title]
   {:type surface-type
    :uid (str (random-uuid))
    :render-function (get render-functions surface-type)
+   :print-function (get print-functions type)
    :title title
    :contents nil})
 
@@ -78,16 +85,22 @@
         (ui/switch-focus (:uid new-surface))))))
 
 
-(defn extract-contents-from-entry [entry*]
+(defn extract-contents-from-entry
+  "Extracts the contents from an entry for storage. This is helpful since different
+  surface types might have different content structures. For example, a single line input might be represented as a string, but a multi-line input might be represented as a vector or strings."
+  [entry*]
   (let [surfaces (:surfaces @entry*)
         contents (map (fn [s]
-                        (let [{:keys [contents type title]} s
-                              print-func (get print-functions type)]
-                          (str title "\n\n"
-                               (print-func contents)))) surfaces)]
-    (s/join "\n\n\n" contents)))
+                        (let [{:keys [contents type title print-function]} s
+                              title-for-print (if (seq title) (str title "\n") nil)]
+                          (str title-for-print
+                               (print-function contents)))) surfaces)]
+    (s/join "\n\n" contents)))
 
-(defn start-recipe! [name]
+(defn start-recipe!
+  "Replaces the active recipe with a recipe that matches the name provided,
+  and then it adds the first surface in the recipe."
+  [name]
   (sh/exec "clear")
   (reset! state/active-recipe* (wr/get-recipe-by-name name))
   (reset! state/active-entry* (entry-from-recipe name))

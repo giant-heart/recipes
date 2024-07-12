@@ -8,7 +8,7 @@
             [components.state :as state]))
 
 (defn surface
-  "Create a surface to be added to an [[components.entry-composition/entry]]. It accepts
+  "Create a surface to be rendered [[components.entry-composition/entry]]. It accepts
   - `title` to be used as a header,
   - `entry*`: and atom where state is stored
   - `uid`: an identifier to assign to the surface

@@ -129,6 +129,10 @@ and ideally move the cursor to behind it.
 - [ ] Update our ink-ui fork to only import the text-input
 - [X] There is a bug where when we backspace it does not delete the last character/moves the cursor too far back.
 
+** Refactors
+- [ ] should we rename either entry-composition/surface which is the data structure for a surface
+      or structure/surface which is the ink render for a surface
+
 
 * Things to do before publishing
 - [ ] Implement writing flows
