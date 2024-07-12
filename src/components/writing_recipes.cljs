@@ -23,6 +23,11 @@
   [{:name "Journal"
     :alias ["j" ""]
     :surfaces [{:type "markdown", :title "", :description "every letter is precious"}]}
+
+   {:name "Poem"
+    :alias ["p" ""]
+    :surfaces [{:type "poem", :title "", :description ""}]}
+
    {:name "Giant Heart Poem"
     :alias ["ghp"]
     :surfaces [{:type "markdown", :title "Inspiration", :description "What's on your mind?"}

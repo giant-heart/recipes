@@ -41,7 +41,7 @@
   {:type surface-type
    :uid (str (random-uuid))
    :render-function (get render-functions surface-type)
-   :print-function (get print-functions type)
+   :print-function (get print-functions surface-type)
    :title title
    :contents nil})
 
@@ -63,7 +63,9 @@
   (let [all-recipes @state/writing-recipes*
         author-name (:name @state/user-data*)
         recipe (wr/get-recipe-by-name recipe-name)]
-    (entry (:name recipe) author-name)))
+    (if recipe
+      (entry (:name recipe) author-name)
+      (entry "Journal" author-name))))
 
 (defn add-next-surface-in-recipe!
   "Given the active entry, recipe and our zero-indexed current position in the recipe
@@ -88,6 +90,7 @@
   [entry*]
   (let [surfaces (:surfaces @entry*)
         contents (map (fn [s]
+                        (print "extracting contents for " s)
                         (let [{:keys [contents type title print-function]} s
                               title-for-print (if (seq title) (str title "\n") nil)]
                           (str title-for-print
@@ -103,6 +106,6 @@
   (reset! state/active-entry* (entry-from-recipe name))
   (reset! state/active-recipe-position* 0)
   (add-next-surface-in-recipe! state/active-entry*
-                                  state/active-recipe*
-                                  state/active-recipe-position*)
+                               state/active-recipe*
+                               state/active-recipe-position*)
   (reset! state/active-screen* :editor))
