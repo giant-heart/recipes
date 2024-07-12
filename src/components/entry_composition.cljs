@@ -18,24 +18,41 @@
                       "poem" d/multi-line-print
                       "markdown" d/markdown-print})
 
-(defn entry [title author-name]
+(defn entry
+  "the named group of all the surfaces present.
+  It's the unit that we render and perform export on. This allows us to
+  customize the recipes on the fly, by adding additional surfaces
+  without losing our place in the active recipe."
+  [title author-name]
   {:title title
    :creation-date (t/todays-date)
    :surfaces []
    :author author-name})
 
-(defn add-surface! [entry* surface-type & title]
+(defn surface
+  ""
+  [surface-type title]
+  {:type surface-type
+   :uid (str (random-uuid))
+   :render-function (get render-functions surface-type)
+   :title title
+   :contents nil})
+
+(defn add-surface!
+  "adds a surface to the entry atom supplied
+  Of note is the :render-function which references a def defined above."
+  [entry* surface-type & title]
   (let [surface-title (if (seq title) (first title) "")
-        new-surface {:type surface-type
-                     :uid (str (random-uuid))
-                     :render-function (get render-functions surface-type)
-                     :title surface-title
-                     :contents nil}
+        new-surface (surface surface-type
+                             surface-title)
         updated-surfaces (conj (vec (get @entry* :surfaces)) new-surface)]
     (swap! entry* assoc :surfaces updated-surfaces)
     (ui/switch-focus (:uid new-surface))))
 
-(defn entry-from-recipe [recipe-name]
+(defn entry-from-recipe
+  "creates an entry based on a provided recipe-name.
+  it's case-insensitive and matches on the first result from state/writing-recipes*"
+  [recipe-name]
   (let [all-recipes @state/writing-recipes*
         author-name (:name @state/user-data*)
         recipe (first (filter (fn [r]
@@ -44,18 +61,17 @@
                               all-recipes))]
     (entry (:name recipe) author-name)))
 
-(defn add-next-surface-in-recipe! [entry* recipe* idx*]
+(defn add-next-surface-in-recipe!
+  "Given the active entry, recipe and our zero-indexed current position in the recipe
+  add the next surface"
+  [entry* recipe* idx*]
   (let [surface-title (:name @recipe*)
         recipe-surfaces (:surfaces @recipe*)
         surface-to-add (get recipe-surfaces @idx* nil)]
     (if surface-to-add
       (let [surface-type (first surface-to-add)
             surface-name (second surface-to-add)
-            new-surface {:type surface-type
-                         :uid (str (random-uuid))
-                         :render-function (get render-functions surface-type)
-                         :title surface-name
-                         :contents nil}
+            new-surface (surface surface-type surface-name)
             updated-surfaces (conj (vec (get @entry* :surfaces)) new-surface)]
         (swap! idx* inc)
         (swap! entry* assoc :surfaces updated-surfaces)
@@ -65,10 +81,11 @@
 (defn extract-contents-from-entry [entry*]
   (let [surfaces (:surfaces @entry*)
         contents (map (fn [s]
-                        (let [{:keys [contents type]} s
+                        (let [{:keys [contents type title]} s
                               print-func (get print-functions type)]
-                          (print-func contents))) surfaces)]
-    (s/join "\n \n" contents)))
+                          (str title "\n\n"
+                               (print-func contents)))) surfaces)]
+    (s/join "\n\n\n" contents)))
 
 (defn start-recipe! [name]
   (sh/exec "clear")

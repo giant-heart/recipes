@@ -1,5 +1,6 @@
 (ns components.surfaces.structure
   (:require ["ink" :refer [render Text Box]]
+            ["ink-markdown$default" :as Markdown]
             [reagent.core :as r]
             [clojure.string :as s]
             [components.ui :as ui]
@@ -18,7 +19,8 @@
         this-surface (first (filter (fn [s] (= (:uid s) uid))
                                     all-surfaces))
         surface-position (util/position-of-surface uid all-surfaces)
-        contents (:contents this-surface)]
+        contents (:contents this-surface)
+        has-title? (if (seq title) true false)]
     [:> Box
      {:key uid
       :flex-direction "column"
@@ -26,8 +28,8 @@
       :width "100%"
       :gap 1}
      [:> Box
-      {:justify-content "space-between"}
-      (if (seq title) [:> Text title])
+      {:justify-content (if has-title? "space-between" "flex-end")}
+      (if has-title? [:> Markdown (str "**" title "**")])
       (if (= "command-palette" @state/focus)
         [:> Text
          {:inverse true}

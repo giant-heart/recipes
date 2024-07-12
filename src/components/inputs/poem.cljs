@@ -41,7 +41,9 @@
 (defn calc-syllables [line]
   (let [text (:value line)
         words-without-strikethrough (s/replace text #"(\*|\~)+(\S+)(\*|\~)+" "")]
-    (syllable words-without-strikethrough)))
+    (if (seq words-without-strikethrough)
+      (syllable words-without-strikethrough)
+      " ")))
 
 (defn poem-text-input [entry* uid & backspace-function]
   (let [all-surfaces (:surfaces @entry*)
