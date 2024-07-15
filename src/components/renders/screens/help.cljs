@@ -9,12 +9,9 @@
             [reagent.core :as r]))
 
 ;; This represents the help-screen.
-;; It's the main interface that we use to write entries
+;; It displays an explanation of the program and a list of the available commands.
 ;; It contains **everything** that is rendered on the screen at a time
-;; even the header and command-palette.
-;; A pragmatic decision was to allow for some code duplication in the screen
-;; composition since we already had so many abstractions at the levels that
-;; actually need flexibility, ie the surfaces.
+
 
 (def help-text
   "# Welcome to Heart
@@ -54,12 +51,11 @@ Heart is based around the included guides. These guides will take you through a 
     :padding-left 1
     :padding-right 1
     :width "100%"}
-   (h/title-block state/active-entry* "tiny")
+   (h/title-block state/active-entry*)
    [:> Markdown
     {:width "80%"
      :reflow-text true
      :gap 1}
     help-text]
-   [:> Text (str @state/org-storage-path*)]
    (c/command-palette state/active-entry*)
    ])

@@ -86,7 +86,7 @@
 
 (defn extract-contents-from-entry
   "Extracts the contents from an entry for storage. This is helpful since different
-  surface types might have different content structures. For example, a single line input might be represented as a string, but a multi-line input might be represented as a vector or strings."
+  surface types might have different content structures. For example, a single line input might be represented as a string, but a multi-line input might be represented as a vector of strings."
   [entry*]
   (let [surfaces (:surfaces @entry*)
         contents (map (fn [s]
@@ -102,10 +102,11 @@
   and then it adds the first surface in the recipe."
   [name]
   (sh/exec "clear")
-  (reset! state/active-recipe* (wr/get-recipe-by-name name))
-  (reset! state/active-entry* (entry-from-recipe name))
-  (reset! state/active-recipe-position* 0)
-  (add-next-surface-in-recipe! state/active-entry*
-                               state/active-recipe*
-                               state/active-recipe-position*)
-  (reset! state/active-screen* :editor))
+  (let [active-recipe (wr/get-recipe-by-name name)]
+    (reset! state/active-recipe* active-recipe)
+    (reset! state/active-entry* (entry-from-recipe (:name active-recipe)))
+    (reset! state/active-recipe-position* 0)
+    (add-next-surface-in-recipe! state/active-entry*
+                                 state/active-recipe*
+                                 state/active-recipe-position*)
+    (reset! state/active-screen* :editor)))

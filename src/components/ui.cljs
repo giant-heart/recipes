@@ -14,7 +14,7 @@
         num-surfaces (count surfaces)
         surface-target (if (and (<= idx num-surfaces)
                                 (> idx 0))
-                         (nth surfaces (dec idx))
+                         (nth surfaces (dec idx) nil)
                          (if (= idx 0)
-                           (nth surfaces (dec num-surfaces))))]
+                           (nth surfaces (dec num-surfaces) nil)))]
     (if surface-target (switch-focus! (:uid surface-target)) nil)))

@@ -67,4 +67,4 @@ that argues with what is. \n - Byron Katie"
                                   (or (= target-name recipe-name)
                                       (contains? recipe-alias-set target-name))))
                               all-recipes))]
-    recipe))
+    (if recipe recipe (first all-recipes))))

@@ -6,9 +6,8 @@
 
 (defn title-block
   "The header that we can render at the top of screens
-  it displays the title of the entry and it's creation date.
-  this title is usually set to the name of the recipe being used."
-  [active-entry* font]
+  it displays the title of the entry and it's creation date."
+  [active-entry*]
   [:> Box
    {:flex-direction "row"
     :justify-content "space-between"

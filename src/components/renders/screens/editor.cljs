@@ -44,7 +44,7 @@
     :padding-right 1}
    #_(iw/ink-remaining-indicator @state/characters-within-24-hrs*
                                state/max-characters-per-24-hrs)
-   (h/title-block state/active-entry* "tiny")
+   (h/title-block state/active-entry*)
    (entry-surfaces state/active-entry*)
    (c/command-palette state/active-entry*)
    ])
