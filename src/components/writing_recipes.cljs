@@ -41,7 +41,8 @@ that argues with what is. \n - Byron Katie"
                {:type "markdown", :title "Is it true?", :description ""}
                {:type "markdown", :title "Can you absolutely know that it's true?", :description ""}
                {:type "markdown", :title "How do you react, what happens, when you believe that thought?", :description ""}
-               {:type "markdown", :title "Who would you be without the thought?", :description ""}]}])
+               {:type "markdown", :title "Who would you be without the thought?", :description ""}
+               {:type "markdown", :title "Turn the thought around.", :description ""}]}])
 
 
 (defn get-recipes

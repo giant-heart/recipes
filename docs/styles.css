@@ -1,0 +1,73 @@
+.docsify-copy-code-button, .search input{
+  font-family: Source Sans Pro,Helvetica Neue,Arial,sans-serif;
+}
+
+/* Cover Styles */
+
+.cover-main a:nth-child(1) > span:nth-child(1){
+  font-weight: semi-bold;
+  font-size: 2.5em;
+  font-family: serif;
+}
+
+.cover-main > blockquote{
+  margin-top: 2em;
+}
+
+.cover-main > blockquote:nth-child(3) > p:nth-child(1){
+  font-size: 1.25em;
+}
+
+.cover-logo{
+  border: 10px double black;
+  border-radius: 3em;
+  box-shadow: -20px 20px 2px #704AA0;
+}
+
+/* Introduction Styles */
+#main > p:nth-child(3), #main > p:nth-child(4){
+  font-size: 1.25rem;
+  line-height: 2rem;
+}
+
+#main > ul:nth-child(2) li{
+  font-size: 1.75rem;
+  line-height: 3.5rem;;
+}
+
+/* Article Styles */
+#main h1{
+  font-size: 3.5rem;
+}
+
+#main h2{
+  font-size: 2rem;
+  padding-top: 1em;
+  border-top: 1px solid black;
+}
+
+#main h3{
+  margin-top: .5em;
+}
+
+#main p, #main li{
+  font-size: 1.25rem;
+  line-height: 2rem;
+}
+
+#main li{
+  line-height: 2.5rem;
+}
+
+#main > ul:nth-child(13) li{
+  line-height: 3rem;
+}
+
+#main code{
+  font-size: 1.25rem;
+}
+
+/* Instruction Styles */
+#main > ol:nth-child(12) > li:nth-child(2) > p:nth-child(1){
+  margin-bottom: -5px;
+}

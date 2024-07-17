@@ -30,8 +30,9 @@
    ;; add a new surface. If a name is provided (eg. poem), then it will add a poem surface
    ;; otherwise it will default to a markdown surface.
    "add" (fn [args]
-           (let [surface-type (if (seq args) (first args) "markdown")]
-             (ec/add-surface! state/active-entry* surface-type)
+           (let [surface-type (if (seq args) (first args) "markdown")
+                 surface-title (if (seq (rest args)) (second args) "")]
+             (ec/add-surface! state/active-entry* surface-type surface-title)
              true))
 
    ;; switches to the help screen, but does not clear the active entry
@@ -76,7 +77,10 @@
    ;; Clears the current entry and starts a new one of type Journal
    "recycle" (fn [args]
                (ec/start-recipe! "Journal")
-               true)})
+               true)
+
+   "exit" (fn [args]
+            (sh/exit 1))})
 
 (defn run-command
   "This runs the provided command. If it's a number, then we try to switch focus."

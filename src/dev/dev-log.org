@@ -6,9 +6,6 @@ I want to be able to write journal entries with easy access to optional prompts.
   - Inspiration -> Poem -> Reflection
   - Custom sections
 
-- prompts from a list of prompts (such as emotions)
-
-
 * Code Structure
 ** Base.cljs
 The entrypoint to the application. It's where we init our state and call our render function.
@@ -106,6 +103,7 @@ CLOSED: [2024-07-10 Wed 08:49]
 ** Command palette information
 - I changed it so that when we get a suggestion both TAB and Enter autocompletes and submits.
 
+
 ** Base Blocks
 *** Plain
 I want these to be able to type and have new-lines, but not be able to backspace. Backspacing in front of a word should strikethrough instead
@@ -119,14 +117,15 @@ and ideally move the cursor to behind it.
 ** Define Styling
 - ink-ui has it's own styling, but we're using a text-input from outside because we want it to be controlled.
 
+
 * Actionable Steps
-- [ ] Read from config file
+- [X] Read from config file
 
 ** Low hanging fruit
 - [ ] Make the command character configurable
 - [X] Allow for switching between surfaces
-- [ ] Fork Update ink-markdown to make it an ESModule
-- [ ] Update our ink-ui fork to only import the text-input
+- [X] Fork Update ink-markdown to make it an ESModule
+- [X] Update our ink-ui fork to only import the text-input
 - [X] There is a bug where when we backspace it does not delete the last character/moves the cursor too far back.
 
 ** Refactors
@@ -135,6 +134,23 @@ and ideally move the cursor to behind it.
 
 
 * Things to do before publishing
-- [ ] Implement writing flows
-- [ ] Update forks
+- [X] Implement writing flows
+- [X] Update forks
+- [ ] Save to markdown folder
 - [ ] Update README
+- [ ] Integrate Snyk
+
+* Documentation Requirements
+- [ ] README
+  - [ ] Description of Project
+  - [ ] Getting Started as a User
+  - [ ] Getting Started as a Contributor
+
+- [ ] Concept
+  - [ ] Writing Recipes
+  - [ ] High Level Overview of Codebase
+
+
+- [ ] How Tos
+  - [ ] Creating your own recipes
+  - [ ] Creating your own surfaces

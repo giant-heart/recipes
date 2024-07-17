@@ -14,8 +14,8 @@
 
 
 (def help-text
-  "# Welcome to Heart
-A playground for writing
+  "# Welcome to Writing Recipes
+A guided journal for your first draft
 
 ## Surfaces
 You write on surfaces, and each surface can have a special meaning or purpose. For example, the `poem` block will display syllable counts to the left.
