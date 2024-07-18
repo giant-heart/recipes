@@ -7,7 +7,8 @@
             [components.user-data :as u]
             [reagent.core :as r]
             [components.state :as state]
-            [components.exporters.org-roam :as ore]
+            [components.exporters.org-roam :as eor]
+            [components.exporters.markdown :as emd]
             [clojure.string :as s]))
 
 ;; The wonderful command palette.
@@ -66,11 +67,13 @@
    ;; - resets the current entry to a new Journal
    "save" (fn [args]
             (let [contents (ec/extract-contents-from-entry state/active-entry*)
-                  chars-in-contents (count contents)]
+                  chars-in-contents (count contents)
+                  title (if (seq args) (s/join " " args)
+                            (:title @state/active-entry*))]
               (u/update-save-log! chars-in-contents)
-              (ore/save-org-locally contents
-                                    (if (seq args) (s/join " " args)
-                                        (:title @state/active-entry*)))
+              (case @state/default-storage*
+                "org-roam" (eor/save-org-locally contents title)
+                "markdown" (emd/save-markdown-locally contents title))
               (ec/init-blank-entry!)
               true))
 

@@ -42,8 +42,10 @@
 ;; and updated when `save` is called
 (defonce characters-within-24-hrs* (r/atom 0))
 
-;; The location to save documents to
+;; The locations to save documents to
+(defonce default-storage* (r/atom "markdown")) ;; options are `markdown` and `org-roam`
 (defonce org-storage-path* (r/atom "./"))
+(defonce markdown-storage-path* (r/atom "./"))
 
 ;; The maximum characters that we would allow
 ;; Only applicable if we place a character limit
@@ -57,4 +59,4 @@
 (def default-tags nil)
 
 ;; The path to get user data from
-(def user-data-path (str (homedir) "/.heart/"))
+(def user-data-path (str (homedir) "/.giantheart-recipes/"))

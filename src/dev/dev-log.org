@@ -137,7 +137,7 @@ and ideally move the cursor to behind it.
 * Things to do before publishing
 - [X] Implement writing flows
 - [X] Update forks
-- [ ] Save to markdown folder
+- [X] Save to markdown folder
 - [X] Update README
 - [ ] Integrate Snyk
 

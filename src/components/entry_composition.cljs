@@ -70,6 +70,7 @@
   (let [all-recipes @state/writing-recipes*
         author-name (:name @state/user-data*)
         recipe (wr/get-recipe-by-name recipe-name)]
+    (print "creating entry from recipe with name " (:name recipe))
     (if recipe
       (entry (:name recipe) author-name)
       (entry "Journal" author-name))))
@@ -111,7 +112,9 @@
   (sh/exec "clear")
   (let [active-recipe (wr/get-recipe-by-name name)]
     (reset! state/active-recipe* active-recipe)
-    #_(reset! state/active-entry* (entry-from-recipe (:name active-recipe)))
+    (if (seq (:surfaces @state/active-entry*))
+      nil
+      (reset! state/active-entry* (entry-from-recipe (:name active-recipe))))
     (reset! state/active-recipe-position* 0)
     (add-next-surface-in-recipe! state/active-entry*
                                  state/active-recipe*

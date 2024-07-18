@@ -16,13 +16,20 @@
   (let [user-data (user/get-profile)
         save-log (user/get-save-log)
         milliseconds-in-a-day 86400000
-        {:keys [org-storage-path]} user-data]
+        {:keys [default-storage org-storage-path markdown-storage-path]} user-data]
     (reset! state/user-data* user-data)
+    (reset! state/save-log* save-log)
     (reset! state/characters-within-24-hrs*
             (user/count-of-recent-characters save-log milliseconds-in-a-day))
+
+    (if default-storage
+      (reset! state/default-storage* default-storage))
+
     (if org-storage-path
       (reset! state/org-storage-path* org-storage-path))
-    nil))
+
+    (if markdown-storage-path
+      (reset! state/markdown-storage-path* markdown-storage-path))))
 
 (defn init-writing-recipes! []
   (reset! state/writing-recipes* (wr/get-recipes)))

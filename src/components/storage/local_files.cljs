@@ -6,15 +6,27 @@
 ;; This namespace allows for the saving and reading of files
 ;; using zxfs which uses fs-extra under the hood.
 
-(defn save-to-file [content file-path]
+(defn save-to-file
+  "Saves `content` to `file-path`.
+  if the path does not exist, it attempts to create it."
+  [content file-path]
   (let [file (path/resolve file-path)]
+    (zxfs/ensureFile file
+                     (fn [err]
+                       (when err (print err))
+                       true))
     (zxfs/outputFile file
                      content
                      (fn [err]
                        (if err false true)))
     true))
 
-;; This function could be improved to allow it to create the file
-;; if it does not exist since we use it to read config files/user data.
-(defn read-from-file [file-path]
-  (str (zxfs/readFileSync file-path)))
+;; If the file does not exist, it attempts to create it.
+(defn read-from-file
+  "Reads the file at `file-path`
+  if the path does not exist, it attempts to create it"
+  [file-path]
+  (zxfs/ensureFile (path/resolve file-path)
+                   (fn [err]
+                     (when err (print err))
+                     (str (zxfs/readFileSync file-path)))))

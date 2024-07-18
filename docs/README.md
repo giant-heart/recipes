@@ -7,10 +7,10 @@ Unlike other writing software, **you can't edit**.<br> You write here, and then 
 ## Getting Started
 If you have [npm installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 You can try it with: <br>
-`npx writes`
+`npx @giantheart/recipes`
 
 And then install with: <br>
-`npm install writes -g`
+`npm install @giantheart/recipes -g`
 
 
 

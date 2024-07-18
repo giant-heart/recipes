@@ -41,4 +41,4 @@
         updated-log (conj old-save-log
                           [num-characters (.now js/Date)])]
     (reset! state/save-log* updated-log)
-    (lf/save-to-file (str @state/save-log*) (str state/user-data-path "save-log.edn"))))
+    (lf/save-to-file (str @state/save-log*) (str state/user-data-path "save_log.edn"))))
