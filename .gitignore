@@ -3,3 +3,5 @@ build
 /.tsimp
 .shadow-cljs/
 .nbb
+.cpcache
+.nrepl-port

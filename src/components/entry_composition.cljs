@@ -58,7 +58,6 @@
         new-surface (surface surface-type
                              surface-title)
         updated-surfaces (conj (vec (get @entry* :surfaces)) new-surface)]
-    (print "attempting to add surface")
     (swap! entry* assoc :surfaces updated-surfaces)
     (ui/switch-screen! :editor)
     (ui/switch-focus! (:uid new-surface))))
@@ -70,7 +69,6 @@
   (let [all-recipes @state/writing-recipes*
         author-name (:name @state/user-data*)
         recipe (wr/get-recipe-by-name recipe-name)]
-    (print "creating entry from recipe with name " (:name recipe))
     (if recipe
       (entry (:name recipe) author-name)
       (entry "Journal" author-name))))
@@ -98,7 +96,6 @@
   [entry*]
   (let [surfaces (:surfaces @entry*)
         contents (map (fn [s]
-                        (print "extracting contents for " s)
                         (let [{:keys [contents type title print-function]} s
                               title-for-print (if (seq title) (str title "\n") nil)]
                           (str title-for-print
