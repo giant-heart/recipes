@@ -1,0 +1,156 @@
+* Intention
+I want to be able to write journal entries with easy access to optional prompts.
+
+- prompts with distinct sections such as
+  - Dream Journals
+  - Inspiration -> Poem -> Reflection
+  - Custom sections
+
+* Code Structure
+** Base.cljs
+The entrypoint to the application. It's where we init our state and call our render function.
+
+** dev/
+Our dev namespaces. Just for experimentation, not to be referenced anywhere else
+
+** components/
+The building blocks of our application.
+*** ui.cljs
+Functions that manipulate the user-interface on a macro level such as switching focus between inputs.
+
+
+*** entry_composition.cljs
+This will organize the creation of entry-blocks by matching templates to render functions.
+
+#+begin_src clojure
+  ;; exmaple entry
+  {:creation-date <timestamp>
+   :surfaces [<surface-1> <surface-2> <surface-3>]
+   :author <author-name>}
+
+  ;; example surface
+  {:type "dream"
+   :render-function ws/dream-surface
+   :contents "here is my dream"}
+#+end_src
+
+*** renders/
+These are the specific ui components that make up our application. They are mostly React Fragments.
+
+**** header.cljs
+The heading of the application. Mostly for branding and cosmetics.
+
+**** command_palette.cljs
+A textual user interface for controlling and navigating the application.
+
+**** editor.cljs
+The structure of the main writing experience. It's main task is to organize the display of writing surfaces.
+
+**** writing_surfaces/
+These are the different ways that we can add blocks of text to our journal entries. Examples may include adding dreams, poems, or stories.
+
+***** interface.cljs
+An interface to all the writing surfaces so that we can reference them in a consistent manner.
+
+***** plain.cljs
+The default writing surface. It's mostly a text-box with a title.
+It's a "controlled" component which allows us to dynamically set the contents of the textbox. For example, typing "/" is set to switch focus to the command palette.
+
+
+
+* Overarching Tasks
+** Define a structure for the entries
+*** DONE Overarching structure
+CLOSED: [2024-07-10 Wed 08:49]
+- blocks
+  - with names eg. poem-block, dream-block, plain-block
+  - with a corresponding render and creation functions
+
+*** DONE Individual block representations
+CLOSED: [2024-07-10 Wed 08:49]
+- names eg. poem-block
+- custom data structure, eg. lines with syllables
+
+*** Writing Recipes
+- Move through a list of named blocks with intentions.
+
+**** Data structure
+In order to write with a recipe, we need
+1) Name of recipe
+2) Surfaces in recipe
+ - Name of each surface in the recipe
+
+It's basically a templated entry.
+
+eg.
+
+{:recipe-name "Giant Heart Poem"
+ :surfaces [["markdown" "Inspiration" "What's on your mind?"]
+            ["poem" "Poem" "art"]
+            ["markdown "Reflection" "What does the poem reveal?"]]
+}
+
+*** DONE Limited Characters per Day
+CLOSED: [2024-07-10 Wed 08:49]
+- On save, update the profile data to say
+- X Characters written @ Y time
+
+- On load, we filter to Entries in the last 24 hours
+  - sum their character counts
+  - subtract this from max to get the remaining characters
+
+
+** Command palette information
+- I changed it so that when we get a suggestion both TAB and Enter autocompletes and submits.
+
+
+** Base Blocks
+*** Plain
+I want these to be able to type and have new-lines, but not be able to backspace. Backspacing in front of a word should strikethrough instead
+and ideally move the cursor to behind it.
+
+*** Multi-line
+
+*** Markdown
+
+
+** Define Styling
+- ink-ui has it's own styling, but we're using a text-input from outside because we want it to be controlled.
+
+
+* Actionable Steps
+- [X] Read from config file
+- [ ] Add `about` command to reveal the "description" of a step.
+
+** Low hanging fruit
+- [ ] Make the command character configurable
+- [X] Allow for switching between surfaces
+- [X] Fork Update ink-markdown to make it an ESModule
+- [X] Update our ink-ui fork to only import the text-input
+- [X] There is a bug where when we backspace it does not delete the last character/moves the cursor too far back.
+
+** Refactors
+- [ ] should we rename either entry-composition/surface which is the data structure for a surface
+      or structure/surface which is the ink render for a surface
+
+
+* Things to do before publishing
+- [X] Implement writing flows
+- [X] Update forks
+- [X] Save to markdown folder
+- [X] Update README
+- [ ] Integrate Snyk
+
+* Documentation Requirements
+- [X] README
+  - [X] Description of Project
+  - [X] Getting Started as a User
+  - [X] Getting Started as a Contributor
+
+- [ ] Concept
+  - [ ] Writing Recipes
+  - [ ] High Level Overview of Codebase
+
+- [ ] How Tos
+  - [ ] Creating your own recipes
+  - [ ] Creating your own surfaces

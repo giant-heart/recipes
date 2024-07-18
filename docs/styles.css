@@ -1,0 +1,96 @@
+.docsify-copy-code-button, .search input{
+  font-family: Source Sans Pro,Helvetica Neue,Arial,sans-serif;
+}
+
+body{
+  font-family: 'Crimson Text', sans-serif;
+}
+
+/* Cover Styles */
+.cover-main{
+  --theme-color: black;
+}
+
+.cover-main > h1  > a:nth-child(1) span{
+  font-family: 'Akaya Telivigala', display;
+  font-size: 6rem;
+  margin-top: 0px;
+  letter-spacing: .08rem;
+  color: white;
+}
+
+.cover-main > blockquote{
+  margin-top: 1em;
+  margin-bottom: 1.2em;
+}
+
+.cover-main > blockquote:nth-child(3) > p:nth-child(1){
+  font-family: 'Crimson Text', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 400;
+  color: white;
+}
+
+.cover-logo{
+  border: 10px double black;
+  border-radius: 3em;
+  box-shadow: -20px 20px 2px #415E31;
+  margin-bottom: .777em;;
+}
+
+section.cover .cover-main > p:last-child a{
+  font-size: 1.2rem;
+}
+
+/* Introduction Styles */
+#main > p:nth-child(3), #main > p:nth-child(4){
+  font-size: 1.75rem;
+  line-height: 1.5em;
+}
+
+#main > ul:nth-child(2) li{
+  font-size: 1.75rem;
+  line-height: 1.5em;;
+}
+
+/* Article Styles */
+#main h1{
+  font-size: 3.5rem;
+}
+
+#main h2{
+  font-size: 2rem;
+  padding-top: 1em;
+  border-top: 1px solid black;
+}
+
+#main h3{
+  margin-top: .5em;
+}
+
+#main p, #main li{
+  font-size: 1.75rem;
+  line-height: 1.5em;
+}
+
+#main li{
+  line-height: 1.7em;
+}
+
+#main > ul:nth-child(13) li{
+  line-height: 3rem;
+}
+
+#main code{
+  font-size: 1.25rem;
+}
+
+/* Instruction Styles */
+#main > ol:nth-child(12) > li:nth-child(2) > p:nth-child(1){
+  margin-bottom: -5px;
+}
+
+/* Sidebar Styles */
+.sidebar ul li a{
+  font-size: 1.5rem;
+}
