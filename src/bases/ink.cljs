@@ -14,8 +14,9 @@
 
 (defn init-user-data! []
   (let [user-data (user/get-profile)
+        save-log (user/get-save-log)
         milliseconds-in-a-day 86400000
-        {:keys [save-log org-storage-path]} user-data]
+        {:keys [org-storage-path]} user-data]
     (reset! state/user-data* user-data)
     (reset! state/characters-within-24-hrs*
             (user/count-of-recent-characters save-log milliseconds-in-a-day))
@@ -29,6 +30,7 @@
 (defn init-editor! []
   (let [init-recipe-name (if (seq *command-line-args*) (s/join " " *command-line-args*)
                              nil)]
+    (ec/init-blank-entry!)
     (if init-recipe-name
       (ec/start-recipe! init-recipe-name))))
 

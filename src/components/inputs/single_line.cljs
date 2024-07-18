@@ -30,7 +30,7 @@
     [:> TextInput
      {:id uid
       :value (if contents contents "")
-      :focus (= uid @state/focus)
+      :focus (= uid @state/focus*)
       :on-up (fn [e] (print uid))
       :on-down (fn [e] (print uid))
       :allow-change (remaining-chars?)

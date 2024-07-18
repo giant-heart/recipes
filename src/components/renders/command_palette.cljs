@@ -31,7 +31,7 @@
    ;; otherwise it will default to a markdown surface.
    "add" (fn [args]
            (let [surface-type (if (seq args) (first args) "markdown")
-                 surface-title (if (seq (rest args)) (second args) "")]
+                 surface-title (if (seq (rest args)) (s/join " " (rest args)) "")]
              (ec/add-surface! state/active-entry* surface-type surface-title)
              true))
 
@@ -71,12 +71,12 @@
               (ore/save-org-locally contents
                                     (if (seq args) (s/join " " args)
                                         (:title @state/active-entry*)))
-              (ec/start-recipe! "Journal")
+              (ec/init-blank-entry!)
               true))
 
    ;; Clears the current entry and starts a new one of type Journal
    "recycle" (fn [args]
-               (ec/start-recipe! "Journal")
+               (ec/init-blank-entry!)
                true)
 
    "exit" (fn [args]
@@ -111,7 +111,8 @@
    "start"
    "start giant heart poem"
    "start the work"
-   "start journal"])
+   "start journal"
+   "exit"])
 
 (defn command-palette
   "This is the command-palette that is rendered.
@@ -122,16 +123,16 @@
   [:> Box
    {:flex-direction "column"
     :border-style "round"
-    :border-color (if (= "command-palette" @state/focus) "#FE6D73" "#aaaaaa")
+    :border-color (if (= "command-palette" @state/focus*) "#FE6D73" "#aaaaaa")
     :width "100%"
     :gap 1}
    [:> Box
     [:> Text "💘 "]
-    (if (= "command-palette" @state/focus)
+    (if (= "command-palette" @state/focus*)
       [:> ink-ui/TextInput
        {:suggestions suggestion-list
         :value @command-text
-        :is-disabled (not= "command-palette" @state/focus)
+        :is-disabled (not= "command-palette" @state/focus*)
         :on-change (fn [e]
                      (if (and (int? (js/parseInt e))
                               (< (count (:surfaces @state/active-entry*)) 10))

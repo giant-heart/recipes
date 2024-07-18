@@ -9,13 +9,16 @@
 ;; there are some atoms that deal with application state, such as which input to focus on,
 ;; and there are some constants at the bottom that we can probably move to the config file
 
-;; The user profile data. This includes their name and a savelog.
+;; The user profile data. This includes their name and config options
 (defonce user-data* (r/atom nil))
+
+;; The user's save-log. This keeps a track of how many characters they save to perform streak/word target calculations.
+(defonce save-log* (r/atom []))
 
 ;; Which text input to give focus to.
 ;; In this `inkjs` inputs need to be explicitly disabled when not in use
 ;; otherwise they will continue to receive input.
-(defonce focus (r/atom "command-palette"))
+(defonce focus* (r/atom "command-palette"))
 
 ;; This is the active screen
 ;; Currently the two screens are :help, and :editor

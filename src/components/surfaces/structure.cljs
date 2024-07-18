@@ -31,10 +31,10 @@
      [:> Box
       {:justify-content (if has-title? "space-between" "flex-end")}
       (if has-title? [:> Markdown (str "**" title "**")])
-      (if (= "command-palette" @state/focus)
+      (if (= "command-palette" @state/focus*)
         [:> Text
          {:inverse true}
          (str " "(inc surface-position)" ")])]
-     (if (= uid @state/focus)
+     (if (= uid @state/focus*)
        (input entry* uid)
        (display entry* uid))]))

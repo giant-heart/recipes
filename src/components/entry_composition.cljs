@@ -11,15 +11,15 @@
 (def render-functions
   "The functions to render the surface on the screen. It includes an
   input for when it's active, and a display for when it's inactive."
-  {"plain" surfaces/single-line-surface
-   "multi-line" surfaces/multi-line-surface
+  {"single-line" surfaces/single-line-surface
+   "plain" surfaces/multi-line-surface
    "markdown" surfaces/markdown-surface
    "poem" surfaces/poem-surface})
 
 (def print-functions
   "The functions to extract the contents of a surface for export."
-  {"plain" (fn [e] e)
-   "multi-line" d/multi-line-print
+  {"single-line" (fn [e] e)
+   "plain" d/multi-line-print
    "poem" d/multi-line-print
    "markdown" d/markdown-print})
 
@@ -33,6 +33,11 @@
    :creation-date (t/todays-date)
    :surfaces []
    :author author-name})
+
+(defn init-blank-entry!
+  "sets the active entry to be without a recipe or any surfaces"
+  []
+  (reset! state/active-entry* (entry "" (:name @state/user-data*))))
 
 (defn surface
   "the data structure for each surface. It takes the type of surface and a title
@@ -53,7 +58,9 @@
         new-surface (surface surface-type
                              surface-title)
         updated-surfaces (conj (vec (get @entry* :surfaces)) new-surface)]
+    (print "attempting to add surface")
     (swap! entry* assoc :surfaces updated-surfaces)
+    (ui/switch-screen! :editor)
     (ui/switch-focus! (:uid new-surface))))
 
 (defn entry-from-recipe
@@ -104,9 +111,9 @@
   (sh/exec "clear")
   (let [active-recipe (wr/get-recipe-by-name name)]
     (reset! state/active-recipe* active-recipe)
-    (reset! state/active-entry* (entry-from-recipe (:name active-recipe)))
+    #_(reset! state/active-entry* (entry-from-recipe (:name active-recipe)))
     (reset! state/active-recipe-position* 0)
     (add-next-surface-in-recipe! state/active-entry*
                                  state/active-recipe*
                                  state/active-recipe-position*)
-    (reset! state/active-screen* :editor)))
+    (ui/switch-screen! :editor)))

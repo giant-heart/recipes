@@ -15,6 +15,13 @@
         parsed-profile (edn/read-string read-profile)]
     parsed-profile))
 
+(defn get-save-log
+  "Reads the user save-log from disk based ont he user-data-path defined"
+  []
+  (let [read-save-log (lf/read-from-file (str state/user-data-path "save_log.edn"))
+        parsed-save-log (edn/read-string read-save-log)]
+    parsed-save-log))
+
 (defn count-of-recent-characters
   "Calculates the number of characters saved given the save-log and
   the amount of milliseconds that we consider to be recent."
@@ -33,5 +40,5 @@
   (let [old-save-log (:save-log @state/user-data*)
         updated-log (conj old-save-log
                           [num-characters (.now js/Date)])]
-    (swap! state/user-data* assoc :save-log updated-log)
-    (lf/save-to-file (str @state/user-data*) (str state/user-data-path "profile.edn"))))
+    (reset! state/save-log* updated-log)
+    (lf/save-to-file (str @state/save-log*) (str state/user-data-path "save-log.edn"))))

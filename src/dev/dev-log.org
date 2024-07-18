@@ -120,6 +120,7 @@ and ideally move the cursor to behind it.
 
 * Actionable Steps
 - [X] Read from config file
+- [ ] Add `about` command to reveal the "description" of a step.
 
 ** Low hanging fruit
 - [ ] Make the command character configurable
@@ -137,14 +138,14 @@ and ideally move the cursor to behind it.
 - [X] Implement writing flows
 - [X] Update forks
 - [ ] Save to markdown folder
-- [ ] Update README
+- [X] Update README
 - [ ] Integrate Snyk
 
 * Documentation Requirements
-- [ ] README
-  - [ ] Description of Project
-  - [ ] Getting Started as a User
-  - [ ] Getting Started as a Contributor
+- [X] README
+  - [X] Description of Project
+  - [X] Getting Started as a User
+  - [X] Getting Started as a Contributor
 
 - [ ] Concept
   - [ ] Writing Recipes
