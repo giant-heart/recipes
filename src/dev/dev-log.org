@@ -151,7 +151,6 @@ and ideally move the cursor to behind it.
   - [ ] Writing Recipes
   - [ ] High Level Overview of Codebase
 
-
 - [ ] How Tos
   - [ ] Creating your own recipes
   - [ ] Creating your own surfaces

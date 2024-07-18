@@ -1,28 +1,48 @@
 {
-  "name": "writes",
-  "version": "0.1",
-  "description": "A ",
-  "main": "src/bases/ink.cljs",
-  "files": [
-    "src"
-  ],
-  "bin": {
-    "writes": "index.mjs"
+  "name": "@giantheart/recipes",
+  "version": "0.1.0",
+  "description": "A TUI guided journal for your first draft.",
+  "main": "index.mjs",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
   },
+    "bin":{
+        "writes": "index.mjs"
+    },
   "dependencies": {
-    "@inkjs/ui": "github:rainbow-bamboo/ink-ui#custom-keymaps",
-    "date-and-time": "^3.3.0",
-    "ink": "^5.0.1",
-    "ink-big-text": "^2.0.0",
-    "ink-gradient": "^3.0.0",
-    "ink-markdown": "^1.0.4",
-    "ink-text-input": "github:rainbow-bamboo/ink-text-input#custom-keymaps-with-backtick-accommodation",
-    "nbb": "^1.2.190",
-    "shelljs": "^0.8.5",
-    "syllable": "^5.0.1",
-    "zx": "^8.1.4"
+      "@inkjs/ui": "github:rainbow-bamboo/ink-ui#custom-keymaps",
+      "date-and-time": "^3.3.0",
+      "ink": "^5.0.1",
+      "ink-big-text": "^2.0.0",
+      "ink-gradient": "^3.0.0",
+      "ink-markdown": "^1.0.4",
+      "ink-text-input": "github:rainbow-bamboo/ink-text-input#custom-keymaps-with-backtick-accommodation",
+      "nbb": "^1.2.190",
+      "shelljs": "^0.8.5",
+      "syllable": "^5.0.1",
+      "zx": "^8.1.4"
   },
+  "devDependencies": {},
   "scripts": {
-    "start": "nbb ./src/bases/ink.cljs"
-  }
+      "start": "nbb ./src/bases/ink.cljs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giant-heart/recipes.git"
+  },
+  "keywords": [
+    "text-editor",
+    "author",
+    "poet",
+    "poetry",
+    "writing",
+    "writer"
+  ],
+  "author": "Giant Heart Poetry",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/giant-heart/recipes/issues"
+  },
+  "homepage": "https://github.com/giant-heart/recipes#readme"
 }
