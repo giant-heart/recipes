@@ -2,3 +2,4 @@ node_modules/
 build
 /.tsimp
 .shadow-cljs/
+.nbb

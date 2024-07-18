@@ -1,1 +1,0 @@
-{:deps {tick/tick {:mvn/version "0.7.5"}, henryw374/js-joda {:mvn/version "3.2.0-0"}, henryw374/js-joda-locale-en-us {:mvn/version "1.0.0-1"}, cljsjs/js-joda-timezone {:mvn/version "2.2.0-0"}}}
