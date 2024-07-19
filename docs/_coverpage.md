@@ -3,7 +3,7 @@
 
 > A guided journal for your first thoughts.
 
-[GitHub](https://github.com/docsifyjs/docsify/)
+[GitHub](https://github.com/giant-heart/recipes)
 [Get Started](#introduction)
 
 ![color](#618B4A)
