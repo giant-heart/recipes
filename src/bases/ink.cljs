@@ -1,5 +1,3 @@
-#!/usr/bin/env -S nbb --classpath "src"
-
 (ns bases.ink
   (:require [components.renders.app :as a]
             [components.user-data :as user]

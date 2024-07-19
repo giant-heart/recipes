@@ -2,38 +2,38 @@
   "name": "@giantheart/recipes",
   "version": "0.1.1",
   "description": "A TUI guided journal for your first draft.",
-  "main": "src/bases/ink.cljs",
+  "main": "index.mjs",
   "directories": {
     "doc": "docs",
     "test": "test"
   },
   "files": [
-    "src"
+    "src/*",
+    "docs/*"
   ],
   "bin": {
     "recipes": "index.mjs"
   },
   "dependencies": {
-    "@inkjs/ui": "github:rainbow-bamboo/ink-ui#custom-keymaps",
+    "@inkjs/ui": "github:rainbow-bamboo/ink-ui#55fbb62",
     "date-and-time": "^3.3.0",
     "ink": "^5.0.1",
     "ink-big-text": "^2.0.0",
     "ink-gradient": "^3.0.0",
-    "ink-markdown": "^1.0.4",
-    "ink-text-input": "github:rainbow-bamboo/ink-text-input#custom-keymaps-with-backtick-accommodation",
+    "ink-markdown": "github:rainbow-bamboo/ink-markdown#5c33797",
+    "ink-text-input": "github:rainbow-bamboo/ink-text-input#21edc25",
     "nbb": "^1.2.190",
     "shelljs": "^0.8.5",
     "syllable": "^5.0.1",
     "zx": "^8.1.4"
   },
-  "devDependencies": {},
-  "scripts": {
-    "start": "./src/bases/ink.cljs"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/giant-heart/recipes.git"
   },
+    "scripts": {
+        "start": "node index.mjs"
+    },
   "keywords": [
     "text-editor",
     "author",
