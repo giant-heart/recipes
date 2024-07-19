@@ -1,5 +1,5 @@
 # Recipes
-<img class="cover-logo" src="/assets/img/intro.gif" alt="an animation of writing recipes" width="800"/>
+<img class="cover-logo" src="/recipes/assets/img/intro.gif" alt="an animation of writing recipes" width="800"/>
 
 > A guided journal for your first thoughts.
 
