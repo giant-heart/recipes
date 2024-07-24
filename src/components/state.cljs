@@ -59,4 +59,4 @@
 (def default-tags nil)
 
 ;; The path to get user data from
-(def user-data-path (str (homedir) "/.giantheart-recipes/"))
+(def user-data-path (str (homedir) "/.writing_recipes/"))
