@@ -51,8 +51,7 @@
    :contents nil})
 
 (defn add-surface!
-  "adds a surface to the entry atom supplied
-  Of note is the :render-function which references a def defined above."
+  "adds a surface to the entry atom supplied"
   [entry* surface-type & title]
   (let [surface-title (if (seq title) (first title) "")
         new-surface (surface surface-type
